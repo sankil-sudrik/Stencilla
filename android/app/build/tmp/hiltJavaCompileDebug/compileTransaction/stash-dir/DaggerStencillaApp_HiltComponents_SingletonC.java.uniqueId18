@@ -1,0 +1,933 @@
+package com.stencilla.app;
+
+import android.app.Activity;
+import android.app.Service;
+import android.view.View;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.SavedStateHandle;
+import androidx.lifecycle.ViewModel;
+import com.stencilla.app.data.local.AuthStore;
+import com.stencilla.app.data.local.db.ClothingItemDao;
+import com.stencilla.app.data.local.db.OutfitDao;
+import com.stencilla.app.data.local.db.OutfitFeedbackDao;
+import com.stencilla.app.data.local.db.PlannerEventDao;
+import com.stencilla.app.data.local.db.StencillaDatabase;
+import com.stencilla.app.data.local.db.StyleNoteDao;
+import com.stencilla.app.data.remote.ApiService;
+import com.stencilla.app.data.repository.AuthRepository;
+import com.stencilla.app.data.repository.ContextRepository;
+import com.stencilla.app.data.repository.OutfitRepository;
+import com.stencilla.app.data.repository.PlannerRepository;
+import com.stencilla.app.data.repository.ProfileRepository;
+import com.stencilla.app.data.repository.SettingsRepository;
+import com.stencilla.app.data.repository.StyleNotesRepository;
+import com.stencilla.app.data.repository.WardrobeAnalyticsRepository;
+import com.stencilla.app.data.repository.WardrobeRepository;
+import com.stencilla.app.di.DatabaseModule_ProvideClothingItemDaoFactory;
+import com.stencilla.app.di.DatabaseModule_ProvideDatabaseFactory;
+import com.stencilla.app.di.DatabaseModule_ProvideOutfitDaoFactory;
+import com.stencilla.app.di.DatabaseModule_ProvideOutfitFeedbackDaoFactory;
+import com.stencilla.app.di.DatabaseModule_ProvidePlannerEventDaoFactory;
+import com.stencilla.app.di.DatabaseModule_ProvideStyleNoteDaoFactory;
+import com.stencilla.app.di.NetworkModule_ProvideApiServiceFactory;
+import com.stencilla.app.di.NetworkModule_ProvideAuthInterceptorFactory;
+import com.stencilla.app.di.NetworkModule_ProvideOkHttpFactory;
+import com.stencilla.app.di.NetworkModule_ProvideRetrofitFactory;
+import com.stencilla.app.ml.OnDeviceLabeler;
+import com.stencilla.app.ui.auth.AuthViewModel;
+import com.stencilla.app.ui.auth.AuthViewModel_HiltModules;
+import com.stencilla.app.ui.closet.AddItemViewModel;
+import com.stencilla.app.ui.closet.AddItemViewModel_HiltModules;
+import com.stencilla.app.ui.closet.ClosetViewModel;
+import com.stencilla.app.ui.closet.ClosetViewModel_HiltModules;
+import com.stencilla.app.ui.onboarding.ProfileViewModel;
+import com.stencilla.app.ui.onboarding.ProfileViewModel_HiltModules;
+import com.stencilla.app.ui.outfit.OutfitViewModel;
+import com.stencilla.app.ui.outfit.OutfitViewModel_HiltModules;
+import com.stencilla.app.ui.planner.PlannerViewModel;
+import com.stencilla.app.ui.planner.PlannerViewModel_HiltModules;
+import com.stencilla.app.ui.settings.SettingsViewModel;
+import com.stencilla.app.ui.settings.SettingsViewModel_HiltModules;
+import com.stencilla.app.ui.stylenotes.StyleNotesViewModel;
+import com.stencilla.app.ui.stylenotes.StyleNotesViewModel_HiltModules;
+import com.stencilla.app.ui.today.TodayViewModel;
+import com.stencilla.app.ui.today.TodayViewModel_HiltModules;
+import com.stencilla.app.ui.verifier.OutfitVerifierViewModel;
+import com.stencilla.app.ui.verifier.OutfitVerifierViewModel_HiltModules;
+import dagger.hilt.android.ActivityRetainedLifecycle;
+import dagger.hilt.android.ViewModelLifecycle;
+import dagger.hilt.android.internal.builders.ActivityComponentBuilder;
+import dagger.hilt.android.internal.builders.ActivityRetainedComponentBuilder;
+import dagger.hilt.android.internal.builders.FragmentComponentBuilder;
+import dagger.hilt.android.internal.builders.ServiceComponentBuilder;
+import dagger.hilt.android.internal.builders.ViewComponentBuilder;
+import dagger.hilt.android.internal.builders.ViewModelComponentBuilder;
+import dagger.hilt.android.internal.builders.ViewWithFragmentComponentBuilder;
+import dagger.hilt.android.internal.lifecycle.DefaultViewModelFactories;
+import dagger.hilt.android.internal.lifecycle.DefaultViewModelFactories_InternalFactoryFactory_Factory;
+import dagger.hilt.android.internal.managers.ActivityRetainedComponentManager_LifecycleModule_ProvideActivityRetainedLifecycleFactory;
+import dagger.hilt.android.internal.managers.SavedStateHandleHolder;
+import dagger.hilt.android.internal.modules.ApplicationContextModule;
+import dagger.hilt.android.internal.modules.ApplicationContextModule_ProvideContextFactory;
+import dagger.internal.DaggerGenerated;
+import dagger.internal.DoubleCheck;
+import dagger.internal.IdentifierNameString;
+import dagger.internal.KeepFieldType;
+import dagger.internal.LazyClassKeyMap;
+import dagger.internal.MapBuilder;
+import dagger.internal.Preconditions;
+import dagger.internal.Provider;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
+import javax.annotation.processing.Generated;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
+
+@DaggerGenerated
+@Generated(
+    value = "dagger.internal.codegen.ComponentProcessor",
+    comments = "https://dagger.dev"
+)
+@SuppressWarnings({
+    "unchecked",
+    "rawtypes",
+    "KotlinInternal",
+    "KotlinInternalInJava",
+    "cast",
+    "deprecation"
+})
+public final class DaggerStencillaApp_HiltComponents_SingletonC {
+  private DaggerStencillaApp_HiltComponents_SingletonC() {
+  }
+
+  public static Builder builder() {
+    return new Builder();
+  }
+
+  public static final class Builder {
+    private ApplicationContextModule applicationContextModule;
+
+    private Builder() {
+    }
+
+    public Builder applicationContextModule(ApplicationContextModule applicationContextModule) {
+      this.applicationContextModule = Preconditions.checkNotNull(applicationContextModule);
+      return this;
+    }
+
+    public StencillaApp_HiltComponents.SingletonC build() {
+      Preconditions.checkBuilderRequirement(applicationContextModule, ApplicationContextModule.class);
+      return new SingletonCImpl(applicationContextModule);
+    }
+  }
+
+  private static final class ActivityRetainedCBuilder implements StencillaApp_HiltComponents.ActivityRetainedC.Builder {
+    private final SingletonCImpl singletonCImpl;
+
+    private SavedStateHandleHolder savedStateHandleHolder;
+
+    private ActivityRetainedCBuilder(SingletonCImpl singletonCImpl) {
+      this.singletonCImpl = singletonCImpl;
+    }
+
+    @Override
+    public ActivityRetainedCBuilder savedStateHandleHolder(
+        SavedStateHandleHolder savedStateHandleHolder) {
+      this.savedStateHandleHolder = Preconditions.checkNotNull(savedStateHandleHolder);
+      return this;
+    }
+
+    @Override
+    public StencillaApp_HiltComponents.ActivityRetainedC build() {
+      Preconditions.checkBuilderRequirement(savedStateHandleHolder, SavedStateHandleHolder.class);
+      return new ActivityRetainedCImpl(singletonCImpl, savedStateHandleHolder);
+    }
+  }
+
+  private static final class ActivityCBuilder implements StencillaApp_HiltComponents.ActivityC.Builder {
+    private final SingletonCImpl singletonCImpl;
+
+    private final ActivityRetainedCImpl activityRetainedCImpl;
+
+    private Activity activity;
+
+    private ActivityCBuilder(SingletonCImpl singletonCImpl,
+        ActivityRetainedCImpl activityRetainedCImpl) {
+      this.singletonCImpl = singletonCImpl;
+      this.activityRetainedCImpl = activityRetainedCImpl;
+    }
+
+    @Override
+    public ActivityCBuilder activity(Activity activity) {
+      this.activity = Preconditions.checkNotNull(activity);
+      return this;
+    }
+
+    @Override
+    public StencillaApp_HiltComponents.ActivityC build() {
+      Preconditions.checkBuilderRequirement(activity, Activity.class);
+      return new ActivityCImpl(singletonCImpl, activityRetainedCImpl, activity);
+    }
+  }
+
+  private static final class FragmentCBuilder implements StencillaApp_HiltComponents.FragmentC.Builder {
+    private final SingletonCImpl singletonCImpl;
+
+    private final ActivityRetainedCImpl activityRetainedCImpl;
+
+    private final ActivityCImpl activityCImpl;
+
+    private Fragment fragment;
+
+    private FragmentCBuilder(SingletonCImpl singletonCImpl,
+        ActivityRetainedCImpl activityRetainedCImpl, ActivityCImpl activityCImpl) {
+      this.singletonCImpl = singletonCImpl;
+      this.activityRetainedCImpl = activityRetainedCImpl;
+      this.activityCImpl = activityCImpl;
+    }
+
+    @Override
+    public FragmentCBuilder fragment(Fragment fragment) {
+      this.fragment = Preconditions.checkNotNull(fragment);
+      return this;
+    }
+
+    @Override
+    public StencillaApp_HiltComponents.FragmentC build() {
+      Preconditions.checkBuilderRequirement(fragment, Fragment.class);
+      return new FragmentCImpl(singletonCImpl, activityRetainedCImpl, activityCImpl, fragment);
+    }
+  }
+
+  private static final class ViewWithFragmentCBuilder implements StencillaApp_HiltComponents.ViewWithFragmentC.Builder {
+    private final SingletonCImpl singletonCImpl;
+
+    private final ActivityRetainedCImpl activityRetainedCImpl;
+
+    private final ActivityCImpl activityCImpl;
+
+    private final FragmentCImpl fragmentCImpl;
+
+    private View view;
+
+    private ViewWithFragmentCBuilder(SingletonCImpl singletonCImpl,
+        ActivityRetainedCImpl activityRetainedCImpl, ActivityCImpl activityCImpl,
+        FragmentCImpl fragmentCImpl) {
+      this.singletonCImpl = singletonCImpl;
+      this.activityRetainedCImpl = activityRetainedCImpl;
+      this.activityCImpl = activityCImpl;
+      this.fragmentCImpl = fragmentCImpl;
+    }
+
+    @Override
+    public ViewWithFragmentCBuilder view(View view) {
+      this.view = Preconditions.checkNotNull(view);
+      return this;
+    }
+
+    @Override
+    public StencillaApp_HiltComponents.ViewWithFragmentC build() {
+      Preconditions.checkBuilderRequirement(view, View.class);
+      return new ViewWithFragmentCImpl(singletonCImpl, activityRetainedCImpl, activityCImpl, fragmentCImpl, view);
+    }
+  }
+
+  private static final class ViewCBuilder implements StencillaApp_HiltComponents.ViewC.Builder {
+    private final SingletonCImpl singletonCImpl;
+
+    private final ActivityRetainedCImpl activityRetainedCImpl;
+
+    private final ActivityCImpl activityCImpl;
+
+    private View view;
+
+    private ViewCBuilder(SingletonCImpl singletonCImpl, ActivityRetainedCImpl activityRetainedCImpl,
+        ActivityCImpl activityCImpl) {
+      this.singletonCImpl = singletonCImpl;
+      this.activityRetainedCImpl = activityRetainedCImpl;
+      this.activityCImpl = activityCImpl;
+    }
+
+    @Override
+    public ViewCBuilder view(View view) {
+      this.view = Preconditions.checkNotNull(view);
+      return this;
+    }
+
+    @Override
+    public StencillaApp_HiltComponents.ViewC build() {
+      Preconditions.checkBuilderRequirement(view, View.class);
+      return new ViewCImpl(singletonCImpl, activityRetainedCImpl, activityCImpl, view);
+    }
+  }
+
+  private static final class ViewModelCBuilder implements StencillaApp_HiltComponents.ViewModelC.Builder {
+    private final SingletonCImpl singletonCImpl;
+
+    private final ActivityRetainedCImpl activityRetainedCImpl;
+
+    private SavedStateHandle savedStateHandle;
+
+    private ViewModelLifecycle viewModelLifecycle;
+
+    private ViewModelCBuilder(SingletonCImpl singletonCImpl,
+        ActivityRetainedCImpl activityRetainedCImpl) {
+      this.singletonCImpl = singletonCImpl;
+      this.activityRetainedCImpl = activityRetainedCImpl;
+    }
+
+    @Override
+    public ViewModelCBuilder savedStateHandle(SavedStateHandle handle) {
+      this.savedStateHandle = Preconditions.checkNotNull(handle);
+      return this;
+    }
+
+    @Override
+    public ViewModelCBuilder viewModelLifecycle(ViewModelLifecycle viewModelLifecycle) {
+      this.viewModelLifecycle = Preconditions.checkNotNull(viewModelLifecycle);
+      return this;
+    }
+
+    @Override
+    public StencillaApp_HiltComponents.ViewModelC build() {
+      Preconditions.checkBuilderRequirement(savedStateHandle, SavedStateHandle.class);
+      Preconditions.checkBuilderRequirement(viewModelLifecycle, ViewModelLifecycle.class);
+      return new ViewModelCImpl(singletonCImpl, activityRetainedCImpl, savedStateHandle, viewModelLifecycle);
+    }
+  }
+
+  private static final class ServiceCBuilder implements StencillaApp_HiltComponents.ServiceC.Builder {
+    private final SingletonCImpl singletonCImpl;
+
+    private Service service;
+
+    private ServiceCBuilder(SingletonCImpl singletonCImpl) {
+      this.singletonCImpl = singletonCImpl;
+    }
+
+    @Override
+    public ServiceCBuilder service(Service service) {
+      this.service = Preconditions.checkNotNull(service);
+      return this;
+    }
+
+    @Override
+    public StencillaApp_HiltComponents.ServiceC build() {
+      Preconditions.checkBuilderRequirement(service, Service.class);
+      return new ServiceCImpl(singletonCImpl, service);
+    }
+  }
+
+  private static final class ViewWithFragmentCImpl extends StencillaApp_HiltComponents.ViewWithFragmentC {
+    private final SingletonCImpl singletonCImpl;
+
+    private final ActivityRetainedCImpl activityRetainedCImpl;
+
+    private final ActivityCImpl activityCImpl;
+
+    private final FragmentCImpl fragmentCImpl;
+
+    private final ViewWithFragmentCImpl viewWithFragmentCImpl = this;
+
+    private ViewWithFragmentCImpl(SingletonCImpl singletonCImpl,
+        ActivityRetainedCImpl activityRetainedCImpl, ActivityCImpl activityCImpl,
+        FragmentCImpl fragmentCImpl, View viewParam) {
+      this.singletonCImpl = singletonCImpl;
+      this.activityRetainedCImpl = activityRetainedCImpl;
+      this.activityCImpl = activityCImpl;
+      this.fragmentCImpl = fragmentCImpl;
+
+
+    }
+  }
+
+  private static final class FragmentCImpl extends StencillaApp_HiltComponents.FragmentC {
+    private final SingletonCImpl singletonCImpl;
+
+    private final ActivityRetainedCImpl activityRetainedCImpl;
+
+    private final ActivityCImpl activityCImpl;
+
+    private final FragmentCImpl fragmentCImpl = this;
+
+    private FragmentCImpl(SingletonCImpl singletonCImpl,
+        ActivityRetainedCImpl activityRetainedCImpl, ActivityCImpl activityCImpl,
+        Fragment fragmentParam) {
+      this.singletonCImpl = singletonCImpl;
+      this.activityRetainedCImpl = activityRetainedCImpl;
+      this.activityCImpl = activityCImpl;
+
+
+    }
+
+    @Override
+    public DefaultViewModelFactories.InternalFactoryFactory getHiltInternalFactoryFactory() {
+      return activityCImpl.getHiltInternalFactoryFactory();
+    }
+
+    @Override
+    public ViewWithFragmentComponentBuilder viewWithFragmentComponentBuilder() {
+      return new ViewWithFragmentCBuilder(singletonCImpl, activityRetainedCImpl, activityCImpl, fragmentCImpl);
+    }
+  }
+
+  private static final class ViewCImpl extends StencillaApp_HiltComponents.ViewC {
+    private final SingletonCImpl singletonCImpl;
+
+    private final ActivityRetainedCImpl activityRetainedCImpl;
+
+    private final ActivityCImpl activityCImpl;
+
+    private final ViewCImpl viewCImpl = this;
+
+    private ViewCImpl(SingletonCImpl singletonCImpl, ActivityRetainedCImpl activityRetainedCImpl,
+        ActivityCImpl activityCImpl, View viewParam) {
+      this.singletonCImpl = singletonCImpl;
+      this.activityRetainedCImpl = activityRetainedCImpl;
+      this.activityCImpl = activityCImpl;
+
+
+    }
+  }
+
+  private static final class ActivityCImpl extends StencillaApp_HiltComponents.ActivityC {
+    private final SingletonCImpl singletonCImpl;
+
+    private final ActivityRetainedCImpl activityRetainedCImpl;
+
+    private final ActivityCImpl activityCImpl = this;
+
+    private ActivityCImpl(SingletonCImpl singletonCImpl,
+        ActivityRetainedCImpl activityRetainedCImpl, Activity activityParam) {
+      this.singletonCImpl = singletonCImpl;
+      this.activityRetainedCImpl = activityRetainedCImpl;
+
+
+    }
+
+    @Override
+    public void injectMainActivity(MainActivity mainActivity) {
+    }
+
+    @Override
+    public DefaultViewModelFactories.InternalFactoryFactory getHiltInternalFactoryFactory() {
+      return DefaultViewModelFactories_InternalFactoryFactory_Factory.newInstance(getViewModelKeys(), new ViewModelCBuilder(singletonCImpl, activityRetainedCImpl));
+    }
+
+    @Override
+    public Map<Class<?>, Boolean> getViewModelKeys() {
+      return LazyClassKeyMap.<Boolean>of(MapBuilder.<String, Boolean>newMapBuilder(12).put(LazyClassKeyProvider.com_stencilla_app_ui_closet_AddItemViewModel, AddItemViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_stencilla_app_ui_auth_AuthViewModel, AuthViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_stencilla_app_ui_closet_ClosetViewModel, ClosetViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_stencilla_app_ui_verifier_OutfitVerifierViewModel, OutfitVerifierViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_stencilla_app_ui_outfit_OutfitViewModel, OutfitViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_stencilla_app_ui_planner_PlannerViewModel, PlannerViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_stencilla_app_ui_onboarding_ProfileViewModel, ProfileViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_stencilla_app_ui_profile_ProfileViewModel, com.stencilla.app.ui.profile.ProfileViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_stencilla_app_RootViewModel, RootViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_stencilla_app_ui_settings_SettingsViewModel, SettingsViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_stencilla_app_ui_stylenotes_StyleNotesViewModel, StyleNotesViewModel_HiltModules.KeyModule.provide()).put(LazyClassKeyProvider.com_stencilla_app_ui_today_TodayViewModel, TodayViewModel_HiltModules.KeyModule.provide()).build());
+    }
+
+    @Override
+    public ViewModelComponentBuilder getViewModelComponentBuilder() {
+      return new ViewModelCBuilder(singletonCImpl, activityRetainedCImpl);
+    }
+
+    @Override
+    public FragmentComponentBuilder fragmentComponentBuilder() {
+      return new FragmentCBuilder(singletonCImpl, activityRetainedCImpl, activityCImpl);
+    }
+
+    @Override
+    public ViewComponentBuilder viewComponentBuilder() {
+      return new ViewCBuilder(singletonCImpl, activityRetainedCImpl, activityCImpl);
+    }
+
+    @IdentifierNameString
+    private static final class LazyClassKeyProvider {
+      static String com_stencilla_app_ui_today_TodayViewModel = "com.stencilla.app.ui.today.TodayViewModel";
+
+      static String com_stencilla_app_ui_settings_SettingsViewModel = "com.stencilla.app.ui.settings.SettingsViewModel";
+
+      static String com_stencilla_app_ui_verifier_OutfitVerifierViewModel = "com.stencilla.app.ui.verifier.OutfitVerifierViewModel";
+
+      static String com_stencilla_app_ui_outfit_OutfitViewModel = "com.stencilla.app.ui.outfit.OutfitViewModel";
+
+      static String com_stencilla_app_ui_stylenotes_StyleNotesViewModel = "com.stencilla.app.ui.stylenotes.StyleNotesViewModel";
+
+      static String com_stencilla_app_ui_closet_AddItemViewModel = "com.stencilla.app.ui.closet.AddItemViewModel";
+
+      static String com_stencilla_app_RootViewModel = "com.stencilla.app.RootViewModel";
+
+      static String com_stencilla_app_ui_auth_AuthViewModel = "com.stencilla.app.ui.auth.AuthViewModel";
+
+      static String com_stencilla_app_ui_closet_ClosetViewModel = "com.stencilla.app.ui.closet.ClosetViewModel";
+
+      static String com_stencilla_app_ui_onboarding_ProfileViewModel = "com.stencilla.app.ui.onboarding.ProfileViewModel";
+
+      static String com_stencilla_app_ui_planner_PlannerViewModel = "com.stencilla.app.ui.planner.PlannerViewModel";
+
+      static String com_stencilla_app_ui_profile_ProfileViewModel = "com.stencilla.app.ui.profile.ProfileViewModel";
+
+      @KeepFieldType
+      TodayViewModel com_stencilla_app_ui_today_TodayViewModel2;
+
+      @KeepFieldType
+      SettingsViewModel com_stencilla_app_ui_settings_SettingsViewModel2;
+
+      @KeepFieldType
+      OutfitVerifierViewModel com_stencilla_app_ui_verifier_OutfitVerifierViewModel2;
+
+      @KeepFieldType
+      OutfitViewModel com_stencilla_app_ui_outfit_OutfitViewModel2;
+
+      @KeepFieldType
+      StyleNotesViewModel com_stencilla_app_ui_stylenotes_StyleNotesViewModel2;
+
+      @KeepFieldType
+      AddItemViewModel com_stencilla_app_ui_closet_AddItemViewModel2;
+
+      @KeepFieldType
+      RootViewModel com_stencilla_app_RootViewModel2;
+
+      @KeepFieldType
+      AuthViewModel com_stencilla_app_ui_auth_AuthViewModel2;
+
+      @KeepFieldType
+      ClosetViewModel com_stencilla_app_ui_closet_ClosetViewModel2;
+
+      @KeepFieldType
+      ProfileViewModel com_stencilla_app_ui_onboarding_ProfileViewModel2;
+
+      @KeepFieldType
+      PlannerViewModel com_stencilla_app_ui_planner_PlannerViewModel2;
+
+      @KeepFieldType
+      com.stencilla.app.ui.profile.ProfileViewModel com_stencilla_app_ui_profile_ProfileViewModel2;
+    }
+  }
+
+  private static final class ViewModelCImpl extends StencillaApp_HiltComponents.ViewModelC {
+    private final SingletonCImpl singletonCImpl;
+
+    private final ActivityRetainedCImpl activityRetainedCImpl;
+
+    private final ViewModelCImpl viewModelCImpl = this;
+
+    private Provider<AddItemViewModel> addItemViewModelProvider;
+
+    private Provider<AuthViewModel> authViewModelProvider;
+
+    private Provider<ClosetViewModel> closetViewModelProvider;
+
+    private Provider<OutfitVerifierViewModel> outfitVerifierViewModelProvider;
+
+    private Provider<OutfitViewModel> outfitViewModelProvider;
+
+    private Provider<PlannerViewModel> plannerViewModelProvider;
+
+    private Provider<ProfileViewModel> profileViewModelProvider;
+
+    private Provider<com.stencilla.app.ui.profile.ProfileViewModel> profileViewModelProvider2;
+
+    private Provider<RootViewModel> rootViewModelProvider;
+
+    private Provider<SettingsViewModel> settingsViewModelProvider;
+
+    private Provider<StyleNotesViewModel> styleNotesViewModelProvider;
+
+    private Provider<TodayViewModel> todayViewModelProvider;
+
+    private ViewModelCImpl(SingletonCImpl singletonCImpl,
+        ActivityRetainedCImpl activityRetainedCImpl, SavedStateHandle savedStateHandleParam,
+        ViewModelLifecycle viewModelLifecycleParam) {
+      this.singletonCImpl = singletonCImpl;
+      this.activityRetainedCImpl = activityRetainedCImpl;
+
+      initialize(savedStateHandleParam, viewModelLifecycleParam);
+
+    }
+
+    private ContextRepository contextRepository() {
+      return new ContextRepository(ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule), singletonCImpl.provideApiServiceProvider.get());
+    }
+
+    @SuppressWarnings("unchecked")
+    private void initialize(final SavedStateHandle savedStateHandleParam,
+        final ViewModelLifecycle viewModelLifecycleParam) {
+      this.addItemViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 0);
+      this.authViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 1);
+      this.closetViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 2);
+      this.outfitVerifierViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 3);
+      this.outfitViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 4);
+      this.plannerViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 5);
+      this.profileViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 6);
+      this.profileViewModelProvider2 = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 7);
+      this.rootViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 8);
+      this.settingsViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 9);
+      this.styleNotesViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 10);
+      this.todayViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 11);
+    }
+
+    @Override
+    public Map<Class<?>, javax.inject.Provider<ViewModel>> getHiltViewModelMap() {
+      return LazyClassKeyMap.<javax.inject.Provider<ViewModel>>of(MapBuilder.<String, javax.inject.Provider<ViewModel>>newMapBuilder(12).put(LazyClassKeyProvider.com_stencilla_app_ui_closet_AddItemViewModel, ((Provider) addItemViewModelProvider)).put(LazyClassKeyProvider.com_stencilla_app_ui_auth_AuthViewModel, ((Provider) authViewModelProvider)).put(LazyClassKeyProvider.com_stencilla_app_ui_closet_ClosetViewModel, ((Provider) closetViewModelProvider)).put(LazyClassKeyProvider.com_stencilla_app_ui_verifier_OutfitVerifierViewModel, ((Provider) outfitVerifierViewModelProvider)).put(LazyClassKeyProvider.com_stencilla_app_ui_outfit_OutfitViewModel, ((Provider) outfitViewModelProvider)).put(LazyClassKeyProvider.com_stencilla_app_ui_planner_PlannerViewModel, ((Provider) plannerViewModelProvider)).put(LazyClassKeyProvider.com_stencilla_app_ui_onboarding_ProfileViewModel, ((Provider) profileViewModelProvider)).put(LazyClassKeyProvider.com_stencilla_app_ui_profile_ProfileViewModel, ((Provider) profileViewModelProvider2)).put(LazyClassKeyProvider.com_stencilla_app_RootViewModel, ((Provider) rootViewModelProvider)).put(LazyClassKeyProvider.com_stencilla_app_ui_settings_SettingsViewModel, ((Provider) settingsViewModelProvider)).put(LazyClassKeyProvider.com_stencilla_app_ui_stylenotes_StyleNotesViewModel, ((Provider) styleNotesViewModelProvider)).put(LazyClassKeyProvider.com_stencilla_app_ui_today_TodayViewModel, ((Provider) todayViewModelProvider)).build());
+    }
+
+    @Override
+    public Map<Class<?>, Object> getHiltViewModelAssistedMap() {
+      return Collections.<Class<?>, Object>emptyMap();
+    }
+
+    @IdentifierNameString
+    private static final class LazyClassKeyProvider {
+      static String com_stencilla_app_ui_onboarding_ProfileViewModel = "com.stencilla.app.ui.onboarding.ProfileViewModel";
+
+      static String com_stencilla_app_ui_today_TodayViewModel = "com.stencilla.app.ui.today.TodayViewModel";
+
+      static String com_stencilla_app_ui_closet_AddItemViewModel = "com.stencilla.app.ui.closet.AddItemViewModel";
+
+      static String com_stencilla_app_ui_outfit_OutfitViewModel = "com.stencilla.app.ui.outfit.OutfitViewModel";
+
+      static String com_stencilla_app_ui_planner_PlannerViewModel = "com.stencilla.app.ui.planner.PlannerViewModel";
+
+      static String com_stencilla_app_ui_auth_AuthViewModel = "com.stencilla.app.ui.auth.AuthViewModel";
+
+      static String com_stencilla_app_ui_verifier_OutfitVerifierViewModel = "com.stencilla.app.ui.verifier.OutfitVerifierViewModel";
+
+      static String com_stencilla_app_ui_profile_ProfileViewModel = "com.stencilla.app.ui.profile.ProfileViewModel";
+
+      static String com_stencilla_app_ui_closet_ClosetViewModel = "com.stencilla.app.ui.closet.ClosetViewModel";
+
+      static String com_stencilla_app_RootViewModel = "com.stencilla.app.RootViewModel";
+
+      static String com_stencilla_app_ui_settings_SettingsViewModel = "com.stencilla.app.ui.settings.SettingsViewModel";
+
+      static String com_stencilla_app_ui_stylenotes_StyleNotesViewModel = "com.stencilla.app.ui.stylenotes.StyleNotesViewModel";
+
+      @KeepFieldType
+      ProfileViewModel com_stencilla_app_ui_onboarding_ProfileViewModel2;
+
+      @KeepFieldType
+      TodayViewModel com_stencilla_app_ui_today_TodayViewModel2;
+
+      @KeepFieldType
+      AddItemViewModel com_stencilla_app_ui_closet_AddItemViewModel2;
+
+      @KeepFieldType
+      OutfitViewModel com_stencilla_app_ui_outfit_OutfitViewModel2;
+
+      @KeepFieldType
+      PlannerViewModel com_stencilla_app_ui_planner_PlannerViewModel2;
+
+      @KeepFieldType
+      AuthViewModel com_stencilla_app_ui_auth_AuthViewModel2;
+
+      @KeepFieldType
+      OutfitVerifierViewModel com_stencilla_app_ui_verifier_OutfitVerifierViewModel2;
+
+      @KeepFieldType
+      com.stencilla.app.ui.profile.ProfileViewModel com_stencilla_app_ui_profile_ProfileViewModel2;
+
+      @KeepFieldType
+      ClosetViewModel com_stencilla_app_ui_closet_ClosetViewModel2;
+
+      @KeepFieldType
+      RootViewModel com_stencilla_app_RootViewModel2;
+
+      @KeepFieldType
+      SettingsViewModel com_stencilla_app_ui_settings_SettingsViewModel2;
+
+      @KeepFieldType
+      StyleNotesViewModel com_stencilla_app_ui_stylenotes_StyleNotesViewModel2;
+    }
+
+    private static final class SwitchingProvider<T> implements Provider<T> {
+      private final SingletonCImpl singletonCImpl;
+
+      private final ActivityRetainedCImpl activityRetainedCImpl;
+
+      private final ViewModelCImpl viewModelCImpl;
+
+      private final int id;
+
+      SwitchingProvider(SingletonCImpl singletonCImpl, ActivityRetainedCImpl activityRetainedCImpl,
+          ViewModelCImpl viewModelCImpl, int id) {
+        this.singletonCImpl = singletonCImpl;
+        this.activityRetainedCImpl = activityRetainedCImpl;
+        this.viewModelCImpl = viewModelCImpl;
+        this.id = id;
+      }
+
+      @SuppressWarnings("unchecked")
+      @Override
+      public T get() {
+        switch (id) {
+          case 0: // com.stencilla.app.ui.closet.AddItemViewModel 
+          return (T) new AddItemViewModel(singletonCImpl.wardrobeRepositoryProvider.get());
+
+          case 1: // com.stencilla.app.ui.auth.AuthViewModel 
+          return (T) new AuthViewModel(singletonCImpl.authRepositoryProvider.get());
+
+          case 2: // com.stencilla.app.ui.closet.ClosetViewModel 
+          return (T) new ClosetViewModel(singletonCImpl.clothingItemDao(), singletonCImpl.wardrobeAnalyticsRepositoryProvider.get());
+
+          case 3: // com.stencilla.app.ui.verifier.OutfitVerifierViewModel 
+          return (T) new OutfitVerifierViewModel(singletonCImpl.provideApiServiceProvider.get());
+
+          case 4: // com.stencilla.app.ui.outfit.OutfitViewModel 
+          return (T) new OutfitViewModel(singletonCImpl.outfitRepositoryProvider.get(), singletonCImpl.wardrobeRepositoryProvider.get(), viewModelCImpl.contextRepository());
+
+          case 5: // com.stencilla.app.ui.planner.PlannerViewModel 
+          return (T) new PlannerViewModel(singletonCImpl.plannerRepositoryProvider.get(), singletonCImpl.clothingItemDao());
+
+          case 6: // com.stencilla.app.ui.onboarding.ProfileViewModel 
+          return (T) new ProfileViewModel(singletonCImpl.profileRepositoryProvider.get(), singletonCImpl.authRepositoryProvider.get());
+
+          case 7: // com.stencilla.app.ui.profile.ProfileViewModel 
+          return (T) new com.stencilla.app.ui.profile.ProfileViewModel(singletonCImpl.profileRepositoryProvider.get(), singletonCImpl.wardrobeAnalyticsRepositoryProvider.get(), singletonCImpl.clothingItemDao());
+
+          case 8: // com.stencilla.app.RootViewModel 
+          return (T) new RootViewModel(singletonCImpl.authRepositoryProvider.get());
+
+          case 9: // com.stencilla.app.ui.settings.SettingsViewModel 
+          return (T) new SettingsViewModel(singletonCImpl.settingsRepositoryProvider.get(), singletonCImpl.authRepositoryProvider.get());
+
+          case 10: // com.stencilla.app.ui.stylenotes.StyleNotesViewModel 
+          return (T) new StyleNotesViewModel(singletonCImpl.styleNotesRepositoryProvider.get());
+
+          case 11: // com.stencilla.app.ui.today.TodayViewModel 
+          return (T) new TodayViewModel(viewModelCImpl.contextRepository(), singletonCImpl.outfitRepositoryProvider.get(), singletonCImpl.plannerRepositoryProvider.get(), singletonCImpl.profileRepositoryProvider.get(), singletonCImpl.clothingItemDao());
+
+          default: throw new AssertionError(id);
+        }
+      }
+    }
+  }
+
+  private static final class ActivityRetainedCImpl extends StencillaApp_HiltComponents.ActivityRetainedC {
+    private final SingletonCImpl singletonCImpl;
+
+    private final ActivityRetainedCImpl activityRetainedCImpl = this;
+
+    private Provider<ActivityRetainedLifecycle> provideActivityRetainedLifecycleProvider;
+
+    private ActivityRetainedCImpl(SingletonCImpl singletonCImpl,
+        SavedStateHandleHolder savedStateHandleHolderParam) {
+      this.singletonCImpl = singletonCImpl;
+
+      initialize(savedStateHandleHolderParam);
+
+    }
+
+    @SuppressWarnings("unchecked")
+    private void initialize(final SavedStateHandleHolder savedStateHandleHolderParam) {
+      this.provideActivityRetainedLifecycleProvider = DoubleCheck.provider(new SwitchingProvider<ActivityRetainedLifecycle>(singletonCImpl, activityRetainedCImpl, 0));
+    }
+
+    @Override
+    public ActivityComponentBuilder activityComponentBuilder() {
+      return new ActivityCBuilder(singletonCImpl, activityRetainedCImpl);
+    }
+
+    @Override
+    public ActivityRetainedLifecycle getActivityRetainedLifecycle() {
+      return provideActivityRetainedLifecycleProvider.get();
+    }
+
+    private static final class SwitchingProvider<T> implements Provider<T> {
+      private final SingletonCImpl singletonCImpl;
+
+      private final ActivityRetainedCImpl activityRetainedCImpl;
+
+      private final int id;
+
+      SwitchingProvider(SingletonCImpl singletonCImpl, ActivityRetainedCImpl activityRetainedCImpl,
+          int id) {
+        this.singletonCImpl = singletonCImpl;
+        this.activityRetainedCImpl = activityRetainedCImpl;
+        this.id = id;
+      }
+
+      @SuppressWarnings("unchecked")
+      @Override
+      public T get() {
+        switch (id) {
+          case 0: // dagger.hilt.android.ActivityRetainedLifecycle 
+          return (T) ActivityRetainedComponentManager_LifecycleModule_ProvideActivityRetainedLifecycleFactory.provideActivityRetainedLifecycle();
+
+          default: throw new AssertionError(id);
+        }
+      }
+    }
+  }
+
+  private static final class ServiceCImpl extends StencillaApp_HiltComponents.ServiceC {
+    private final SingletonCImpl singletonCImpl;
+
+    private final ServiceCImpl serviceCImpl = this;
+
+    private ServiceCImpl(SingletonCImpl singletonCImpl, Service serviceParam) {
+      this.singletonCImpl = singletonCImpl;
+
+
+    }
+  }
+
+  private static final class SingletonCImpl extends StencillaApp_HiltComponents.SingletonC {
+    private final ApplicationContextModule applicationContextModule;
+
+    private final SingletonCImpl singletonCImpl = this;
+
+    private Provider<AuthStore> authStoreProvider;
+
+    private Provider<Interceptor> provideAuthInterceptorProvider;
+
+    private Provider<OkHttpClient> provideOkHttpProvider;
+
+    private Provider<Retrofit> provideRetrofitProvider;
+
+    private Provider<ApiService> provideApiServiceProvider;
+
+    private Provider<OnDeviceLabeler> onDeviceLabelerProvider;
+
+    private Provider<StencillaDatabase> provideDatabaseProvider;
+
+    private Provider<WardrobeRepository> wardrobeRepositoryProvider;
+
+    private Provider<AuthRepository> authRepositoryProvider;
+
+    private Provider<WardrobeAnalyticsRepository> wardrobeAnalyticsRepositoryProvider;
+
+    private Provider<OutfitRepository> outfitRepositoryProvider;
+
+    private Provider<PlannerRepository> plannerRepositoryProvider;
+
+    private Provider<ProfileRepository> profileRepositoryProvider;
+
+    private Provider<SettingsRepository> settingsRepositoryProvider;
+
+    private Provider<StyleNotesRepository> styleNotesRepositoryProvider;
+
+    private SingletonCImpl(ApplicationContextModule applicationContextModuleParam) {
+      this.applicationContextModule = applicationContextModuleParam;
+      initialize(applicationContextModuleParam);
+
+    }
+
+    private ClothingItemDao clothingItemDao() {
+      return DatabaseModule_ProvideClothingItemDaoFactory.provideClothingItemDao(provideDatabaseProvider.get());
+    }
+
+    private OutfitDao outfitDao() {
+      return DatabaseModule_ProvideOutfitDaoFactory.provideOutfitDao(provideDatabaseProvider.get());
+    }
+
+    private OutfitFeedbackDao outfitFeedbackDao() {
+      return DatabaseModule_ProvideOutfitFeedbackDaoFactory.provideOutfitFeedbackDao(provideDatabaseProvider.get());
+    }
+
+    private PlannerEventDao plannerEventDao() {
+      return DatabaseModule_ProvidePlannerEventDaoFactory.providePlannerEventDao(provideDatabaseProvider.get());
+    }
+
+    private StyleNoteDao styleNoteDao() {
+      return DatabaseModule_ProvideStyleNoteDaoFactory.provideStyleNoteDao(provideDatabaseProvider.get());
+    }
+
+    @SuppressWarnings("unchecked")
+    private void initialize(final ApplicationContextModule applicationContextModuleParam) {
+      this.authStoreProvider = DoubleCheck.provider(new SwitchingProvider<AuthStore>(singletonCImpl, 5));
+      this.provideAuthInterceptorProvider = DoubleCheck.provider(new SwitchingProvider<Interceptor>(singletonCImpl, 4));
+      this.provideOkHttpProvider = DoubleCheck.provider(new SwitchingProvider<OkHttpClient>(singletonCImpl, 3));
+      this.provideRetrofitProvider = DoubleCheck.provider(new SwitchingProvider<Retrofit>(singletonCImpl, 2));
+      this.provideApiServiceProvider = DoubleCheck.provider(new SwitchingProvider<ApiService>(singletonCImpl, 1));
+      this.onDeviceLabelerProvider = DoubleCheck.provider(new SwitchingProvider<OnDeviceLabeler>(singletonCImpl, 6));
+      this.provideDatabaseProvider = DoubleCheck.provider(new SwitchingProvider<StencillaDatabase>(singletonCImpl, 7));
+      this.wardrobeRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<WardrobeRepository>(singletonCImpl, 0));
+      this.authRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<AuthRepository>(singletonCImpl, 8));
+      this.wardrobeAnalyticsRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<WardrobeAnalyticsRepository>(singletonCImpl, 9));
+      this.outfitRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<OutfitRepository>(singletonCImpl, 10));
+      this.plannerRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<PlannerRepository>(singletonCImpl, 11));
+      this.profileRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<ProfileRepository>(singletonCImpl, 12));
+      this.settingsRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<SettingsRepository>(singletonCImpl, 13));
+      this.styleNotesRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<StyleNotesRepository>(singletonCImpl, 14));
+    }
+
+    @Override
+    public void injectStencillaApp(StencillaApp stencillaApp) {
+    }
+
+    @Override
+    public Set<Boolean> getDisableFragmentGetContextFix() {
+      return Collections.<Boolean>emptySet();
+    }
+
+    @Override
+    public ActivityRetainedComponentBuilder retainedComponentBuilder() {
+      return new ActivityRetainedCBuilder(singletonCImpl);
+    }
+
+    @Override
+    public ServiceComponentBuilder serviceComponentBuilder() {
+      return new ServiceCBuilder(singletonCImpl);
+    }
+
+    private static final class SwitchingProvider<T> implements Provider<T> {
+      private final SingletonCImpl singletonCImpl;
+
+      private final int id;
+
+      SwitchingProvider(SingletonCImpl singletonCImpl, int id) {
+        this.singletonCImpl = singletonCImpl;
+        this.id = id;
+      }
+
+      @SuppressWarnings("unchecked")
+      @Override
+      public T get() {
+        switch (id) {
+          case 0: // com.stencilla.app.data.repository.WardrobeRepository 
+          return (T) new WardrobeRepository(singletonCImpl.provideApiServiceProvider.get(), singletonCImpl.onDeviceLabelerProvider.get(), singletonCImpl.clothingItemDao());
+
+          case 1: // com.stencilla.app.data.remote.ApiService 
+          return (T) NetworkModule_ProvideApiServiceFactory.provideApiService(singletonCImpl.provideRetrofitProvider.get());
+
+          case 2: // retrofit2.Retrofit 
+          return (T) NetworkModule_ProvideRetrofitFactory.provideRetrofit(singletonCImpl.provideOkHttpProvider.get());
+
+          case 3: // okhttp3.OkHttpClient 
+          return (T) NetworkModule_ProvideOkHttpFactory.provideOkHttp(singletonCImpl.provideAuthInterceptorProvider.get());
+
+          case 4: // okhttp3.Interceptor 
+          return (T) NetworkModule_ProvideAuthInterceptorFactory.provideAuthInterceptor(singletonCImpl.authStoreProvider.get());
+
+          case 5: // com.stencilla.app.data.local.AuthStore 
+          return (T) new AuthStore(ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule));
+
+          case 6: // com.stencilla.app.ml.OnDeviceLabeler 
+          return (T) new OnDeviceLabeler();
+
+          case 7: // com.stencilla.app.data.local.db.StencillaDatabase 
+          return (T) DatabaseModule_ProvideDatabaseFactory.provideDatabase(ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule));
+
+          case 8: // com.stencilla.app.data.repository.AuthRepository 
+          return (T) new AuthRepository(singletonCImpl.authStoreProvider.get(), singletonCImpl.provideApiServiceProvider.get());
+
+          case 9: // com.stencilla.app.data.repository.WardrobeAnalyticsRepository 
+          return (T) new WardrobeAnalyticsRepository(singletonCImpl.provideApiServiceProvider.get(), singletonCImpl.clothingItemDao(), singletonCImpl.outfitDao());
+
+          case 10: // com.stencilla.app.data.repository.OutfitRepository 
+          return (T) new OutfitRepository(singletonCImpl.provideApiServiceProvider.get(), singletonCImpl.outfitDao(), singletonCImpl.outfitFeedbackDao(), singletonCImpl.clothingItemDao());
+
+          case 11: // com.stencilla.app.data.repository.PlannerRepository 
+          return (T) new PlannerRepository(singletonCImpl.provideApiServiceProvider.get(), singletonCImpl.plannerEventDao(), singletonCImpl.clothingItemDao());
+
+          case 12: // com.stencilla.app.data.repository.ProfileRepository 
+          return (T) new ProfileRepository(singletonCImpl.provideApiServiceProvider.get());
+
+          case 13: // com.stencilla.app.data.repository.SettingsRepository 
+          return (T) new SettingsRepository(ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule), singletonCImpl.provideApiServiceProvider.get());
+
+          case 14: // com.stencilla.app.data.repository.StyleNotesRepository 
+          return (T) new StyleNotesRepository(singletonCImpl.provideApiServiceProvider.get(), singletonCImpl.styleNoteDao());
+
+          default: throw new AssertionError(id);
+        }
+      }
+    }
+  }
+}

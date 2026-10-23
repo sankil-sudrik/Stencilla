@@ -1,0 +1,219 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.stencilla.app"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="26"
+9        android:targetSdkVersion="35" />
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:4:5-67
+11-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:4:22-64
+12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+12-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:5:5-79
+12-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:5:22-76
+13    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+13-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:6:5-81
+13-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:6:22-78
+14    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+14-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:7:5-79
+14-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:7:22-76
+15    <uses-permission android:name="android.permission.CAMERA" />
+15-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:8:5-65
+15-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:8:22-62
+16    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+16-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:9:5-76
+16-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:9:22-73
+17    <!-- Fallback for Android 12 and below -->
+18    <uses-permission
+18-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:11:5-12:38
+19        android:name="android.permission.READ_EXTERNAL_STORAGE"
+19-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:11:22-77
+20        android:maxSdkVersion="32" />
+20-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:12:9-35
+21    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+21-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:13:5-77
+21-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:13:22-74
+22
+23    <uses-feature
+23-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:15:5-85
+24        android:name="android.hardware.camera"
+24-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:15:19-57
+25        android:required="false" />
+25-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:15:58-82
+26
+27    <permission
+27-->[androidx.core:core:1.15.0] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\30ae0a9b1a10a56c339ea2c4fb59ffd1\transformed\core-1.15.0\AndroidManifest.xml:22:5-24:47
+28        android:name="com.stencilla.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+28-->[androidx.core:core:1.15.0] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\30ae0a9b1a10a56c339ea2c4fb59ffd1\transformed\core-1.15.0\AndroidManifest.xml:23:9-81
+29        android:protectionLevel="signature" />
+29-->[androidx.core:core:1.15.0] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\30ae0a9b1a10a56c339ea2c4fb59ffd1\transformed\core-1.15.0\AndroidManifest.xml:24:9-44
+30
+31    <uses-permission android:name="com.stencilla.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+31-->[androidx.core:core:1.15.0] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\30ae0a9b1a10a56c339ea2c4fb59ffd1\transformed\core-1.15.0\AndroidManifest.xml:26:5-97
+31-->[androidx.core:core:1.15.0] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\30ae0a9b1a10a56c339ea2c4fb59ffd1\transformed\core-1.15.0\AndroidManifest.xml:26:22-94
+32
+33    <application
+33-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:17:5-48:19
+34        android:name="com.stencilla.app.StencillaApp"
+34-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:18:9-37
+35        android:allowBackup="true"
+35-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:19:9-35
+36        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+36-->[androidx.core:core:1.15.0] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\30ae0a9b1a10a56c339ea2c4fb59ffd1\transformed\core-1.15.0\AndroidManifest.xml:28:18-86
+37        android:debuggable="true"
+38        android:extractNativeLibs="false"
+39        android:icon="@mipmap/ic_launcher"
+39-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:20:9-43
+40        android:label="@string/app_name"
+40-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:21:9-41
+41        android:networkSecurityConfig="@xml/network_security_config"
+41-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:25:9-69
+42        android:roundIcon="@mipmap/ic_launcher_round"
+42-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:22:9-54
+43        android:supportsRtl="true"
+43-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:23:9-35
+44        android:theme="@style/Theme.Stencilla"
+44-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:24:9-47
+45        android:usesCleartextTraffic="false" >
+45-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:26:9-45
+46        <provider
+47            android:name="androidx.core.content.FileProvider"
+47-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:29:13-62
+48            android:authorities="com.stencilla.app.fileprovider"
+48-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:30:13-64
+49            android:exported="false"
+49-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:31:13-37
+50            android:grantUriPermissions="true" >
+50-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:32:13-47
+51            <meta-data
+51-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:33:13-35:54
+52                android:name="android.support.FILE_PROVIDER_PATHS"
+52-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:34:17-67
+53                android:resource="@xml/file_paths" />
+53-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:35:17-51
+54        </provider>
+55
+56        <activity
+56-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:38:9-47:20
+57            android:name="com.stencilla.app.MainActivity"
+57-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:39:13-41
+58            android:exported="true"
+58-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:40:13-36
+59            android:theme="@style/Theme.Stencilla"
+59-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:42:13-51
+60            android:windowSoftInputMode="adjustResize" >
+60-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:41:13-55
+61            <intent-filter>
+61-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:43:13-46:29
+62                <action android:name="android.intent.action.MAIN" />
+62-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:44:17-69
+62-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:44:25-66
+63
+64                <category android:name="android.intent.category.LAUNCHER" />
+64-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:45:17-77
+64-->C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\AndroidManifest.xml:45:27-74
+65            </intent-filter>
+66        </activity>
+67        <activity
+67-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\99b34b788c352a6913b2fe60d5adc690\transformed\jetified-play-services-base-18.5.0\AndroidManifest.xml:5:9-173
+68            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+68-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\99b34b788c352a6913b2fe60d5adc690\transformed\jetified-play-services-base-18.5.0\AndroidManifest.xml:5:19-85
+69            android:exported="false"
+69-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\99b34b788c352a6913b2fe60d5adc690\transformed\jetified-play-services-base-18.5.0\AndroidManifest.xml:5:146-170
+70            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+70-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\99b34b788c352a6913b2fe60d5adc690\transformed\jetified-play-services-base-18.5.0\AndroidManifest.xml:5:86-145
+71
+72        <meta-data
+72-->[com.google.android.gms:play-services-basement:18.4.0] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\9f4748d5367486f8cf94247aca4c5cd1\transformed\jetified-play-services-basement-18.4.0\AndroidManifest.xml:6:9-122
+73            android:name="com.google.android.gms.version"
+73-->[com.google.android.gms:play-services-basement:18.4.0] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\9f4748d5367486f8cf94247aca4c5cd1\transformed\jetified-play-services-basement-18.4.0\AndroidManifest.xml:6:20-65
+74            android:value="@integer/google_play_services_version" />
+74-->[com.google.android.gms:play-services-basement:18.4.0] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\9f4748d5367486f8cf94247aca4c5cd1\transformed\jetified-play-services-basement-18.4.0\AndroidManifest.xml:6:66-119
+75
+76        <activity
+76-->[androidx.compose.ui:ui-tooling-android:1.7.6] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\665335a133d13d4575ec3a1d81501d7f\transformed\jetified-ui-tooling-release\AndroidManifest.xml:23:9-25:39
+77            android:name="androidx.compose.ui.tooling.PreviewActivity"
+77-->[androidx.compose.ui:ui-tooling-android:1.7.6] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\665335a133d13d4575ec3a1d81501d7f\transformed\jetified-ui-tooling-release\AndroidManifest.xml:24:13-71
+78            android:exported="true" />
+78-->[androidx.compose.ui:ui-tooling-android:1.7.6] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\665335a133d13d4575ec3a1d81501d7f\transformed\jetified-ui-tooling-release\AndroidManifest.xml:25:13-36
+79
+80        <provider
+80-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\cf111e2dd915dc5d882f075061a21160\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
+81            android:name="androidx.startup.InitializationProvider"
+81-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\cf111e2dd915dc5d882f075061a21160\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:25:13-67
+82            android:authorities="com.stencilla.app.androidx-startup"
+82-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\cf111e2dd915dc5d882f075061a21160\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:26:13-68
+83            android:exported="false" >
+83-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\cf111e2dd915dc5d882f075061a21160\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:27:13-37
+84            <meta-data
+84-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\cf111e2dd915dc5d882f075061a21160\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
+85                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+85-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\cf111e2dd915dc5d882f075061a21160\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:30:17-75
+86                android:value="androidx.startup" />
+86-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\cf111e2dd915dc5d882f075061a21160\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:31:17-49
+87            <meta-data
+87-->[androidx.lifecycle:lifecycle-process:2.8.7] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\6089babbdc254777ba3bb2a381b283fc\transformed\jetified-lifecycle-process-2.8.7\AndroidManifest.xml:29:13-31:52
+88                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+88-->[androidx.lifecycle:lifecycle-process:2.8.7] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\6089babbdc254777ba3bb2a381b283fc\transformed\jetified-lifecycle-process-2.8.7\AndroidManifest.xml:30:17-78
+89                android:value="androidx.startup" />
+89-->[androidx.lifecycle:lifecycle-process:2.8.7] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\6089babbdc254777ba3bb2a381b283fc\transformed\jetified-lifecycle-process-2.8.7\AndroidManifest.xml:31:17-49
+90            <meta-data
+90-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\e2f9e825a585b46728a0b172b0ba4a3b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
+91                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+91-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\e2f9e825a585b46728a0b172b0ba4a3b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
+92                android:value="androidx.startup" />
+92-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\e2f9e825a585b46728a0b172b0ba4a3b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
+93        </provider>
+94
+95        <service
+95-->[androidx.room:room-runtime:2.6.1] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\0869b9953cee712fed4a79baa741ad2c\transformed\room-runtime-2.6.1\AndroidManifest.xml:24:9-28:63
+96            android:name="androidx.room.MultiInstanceInvalidationService"
+96-->[androidx.room:room-runtime:2.6.1] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\0869b9953cee712fed4a79baa741ad2c\transformed\room-runtime-2.6.1\AndroidManifest.xml:25:13-74
+97            android:directBootAware="true"
+97-->[androidx.room:room-runtime:2.6.1] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\0869b9953cee712fed4a79baa741ad2c\transformed\room-runtime-2.6.1\AndroidManifest.xml:26:13-43
+98            android:exported="false" />
+98-->[androidx.room:room-runtime:2.6.1] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\0869b9953cee712fed4a79baa741ad2c\transformed\room-runtime-2.6.1\AndroidManifest.xml:27:13-37
+99
+100        <receiver
+100-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\e2f9e825a585b46728a0b172b0ba4a3b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
+101            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+101-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\e2f9e825a585b46728a0b172b0ba4a3b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
+102            android:directBootAware="false"
+102-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\e2f9e825a585b46728a0b172b0ba4a3b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
+103            android:enabled="true"
+103-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\e2f9e825a585b46728a0b172b0ba4a3b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
+104            android:exported="true"
+104-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\e2f9e825a585b46728a0b172b0ba4a3b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
+105            android:permission="android.permission.DUMP" >
+105-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\e2f9e825a585b46728a0b172b0ba4a3b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
+106            <intent-filter>
+106-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\e2f9e825a585b46728a0b172b0ba4a3b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
+107                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+107-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\e2f9e825a585b46728a0b172b0ba4a3b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
+107-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\e2f9e825a585b46728a0b172b0ba4a3b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
+108            </intent-filter>
+109            <intent-filter>
+109-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\e2f9e825a585b46728a0b172b0ba4a3b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
+110                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+110-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\e2f9e825a585b46728a0b172b0ba4a3b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
+110-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\e2f9e825a585b46728a0b172b0ba4a3b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
+111            </intent-filter>
+112            <intent-filter>
+112-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\e2f9e825a585b46728a0b172b0ba4a3b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
+113                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+113-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\e2f9e825a585b46728a0b172b0ba4a3b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
+113-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\e2f9e825a585b46728a0b172b0ba4a3b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
+114            </intent-filter>
+115            <intent-filter>
+115-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\e2f9e825a585b46728a0b172b0ba4a3b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
+116                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+116-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\e2f9e825a585b46728a0b172b0ba4a3b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
+116-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\e2f9e825a585b46728a0b172b0ba4a3b\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
+117            </intent-filter>
+118        </receiver>
+119    </application>
+120
+121</manifest>

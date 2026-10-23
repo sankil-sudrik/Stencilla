@@ -2,640 +2,305 @@ package com.stencilla.app.ui.planner
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.stencilla.app.data.local.db.PlannerEventEntity
-import com.stencilla.app.ui.theme.*
-import java.time.LocalDate
-import java.time.YearMonth
-import java.time.format.DateTimeFormatter
-import java.time.format.TextStyle as JTextStyle
-import java.util.Locale
+import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
+import com.stencilla.app.ui.theme.StencillaIcons
+
+// ── Design tokens ─────────────────────────────────────────────────────
+private val Bg2             = Color(0xFFFAFAFA)
+private val PlannerPurple   = Color(0xFFE9E4F0)
+private val BrandTerracotta = Color(0xFFC26A5A)
+private val BrandLight3     = Color(0xFFF8F6F3)
+private val G1              = Color(0xFF111827)
+private val G2              = Color(0xFF374151)
+private val G3              = Color(0xFF6B7280)
+private val G4              = Color(0xFF9CA3AF)
+private val G5              = Color(0xFFD1D5DB)
+private val G6              = Color(0xFFE5E7EB)
+private val White           = Color.White
+private val PurpleBtn       = Color(0xFF8A7996)
+
+// ── Static data ───────────────────────────────────────────────────────
+private val daysOfWeek   = listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+private val calDates     = listOf(19, 20, 21, 22, 23, 24, 25)
+private const val selectedDate = 22
+
+private data class DayPlan(val day: String, val event: String?, val time: String?)
+private val dayPlans = listOf(
+    DayPlan("Today",     null,                  null),
+    DayPlan("Tomorrow",  "College Presentation", "10:00 AM"),
+    DayPlan("Saturday",  "Brunch with friends",  "11:30 AM"),
+    DayPlan("Sunday",    "Movie Night",          "7:00 PM")
+)
+
+private val outfitStrip = listOf(
+    Triple("Mon", 19, "https://lh3.googleusercontent.com/aida-public/AB6AXuATb-mYiM5cuQaadnO2AJoqK2nMS4KU61CgjR0OkohFYMPMaRYsxsLnkE1LES3bD6fbJ3bFTdGhidvujSfUQixSpLCh8A09Url5ODGxRJE5GzwDpnGyjMjk-eoRMC_4kf-edAnj_hqhVnjoY2gauXIforSSB1uU0xSmdBMCguxNZt9v0wvZv2cTGyGgIBK8D-kYfb9M4bgxlAwNGXNGhMYdwHphDjf8Emhz4v5UPjKDEUbFd1jK8569"),
+    Triple("Tue", 20, "https://lh3.googleusercontent.com/aida-public/AB6AXuCEE2f0sAF4nPPLu1OzmVvo7Kg7nJR3CAtc3bPFwU6JfVj4zewsZYBG-jTxj0Of1FFV6rlXUjSEVm_0rPeWfy1qBQiqusBo_TPo9nXv4_DJpaH0A_0oaco_MKnBJx7NFvGPnCLXaiBi0D6Bu_0r7KMpL6bFniF6YUuAK8j9ceSxZyQ1b3Rq7L7dqfxZYkijNMKqrT6TcrA4E3jwvgx674PezHqGXZ7FCGURbCIkjLOpnzK2XbZ98ZKY"),
+    Triple("Wed", 21, "https://lh3.googleusercontent.com/aida-public/AB6AXuDWL7lJHoFw8e64EdoBVwJ0zgY87cBnEJjg1Bq2wXhWQeJA6obdImpphzYU2kQrqJjsQcYftfOQX1CVZlng8b-LXAUqEW21SohRz2rS3oP5qMXH93LZP-y1FzverA9KO88HBTVWQ-p82ohbS0_ELJuqgP7H09pQltnYkaDT8NUXusshNdKeIJ09-YZEuRzybFcaJ4gtTy7O8mR5b0zbEri71Fsl9RVOmZshEyu551qXMzi5xr12AxcJ"),
+    Triple("Thu", 22, "https://lh3.googleusercontent.com/aida-public/AB6AXuDzxjjZJQA6EP1ocYLNf0NF84fSsUCMKOlvuXYRGtlgt11neXfYPg4s2r2b5l0DTG4DPJ8mN-AGzCTYNqEDaOomnEA38N8Y5Ja-jR090mKt0eHHbVYznaOz2TEdv-0gmjN3_24HAmxj29APcqRKMoRNk_vEdDAqbckmpHnBvj938g0bHPzgSM_y2n7QSTUWpO6ZmUppfPEYlAcD7OoVnFTj1YdYU6VIqGbE08D_PnbVYRwcTP8BVYrn"),
+    Triple("Fri", 23, "https://lh3.googleusercontent.com/aida-public/AB6AXuDds9z_GrWOIQToQPBi10hWOw_oIIqnIOzjErQyPjkCCd56u6SlFOZ1Df9PKDGNPu7oCES0dr9K23TZU4_JROTHqUA0WNpz12yJLPyna5_t8CGmcreQJuSn0kbwA-OMAEbKynj41GmveVPM8gm3NjsHV0w_cFBMRgyKbeW5Td6cbQX5B7Xpjr_V9AiNnHoCGTJSwwvJ6aYVg6JefpqU--TgTFk2IJhyolpuupwk9cZx_OIOrKRNwJRz")
+)
+
+private val eventThumbs = listOf(
+    "https://lh3.googleusercontent.com/aida-public/AB6AXuC_XCxA2KecVLWLYUfF_II4Z2ul9Jwl7pm-NXHvPgTiArFnENYpO7-RUyvQSMaJuss6c_5QDgn-8cOBFm2MWGhAZgy10bjv6oPw3WchMOFEKRgTmzi3Vxhsbi2i8VayPQsn3gzMqvTIQTooJce9l58-OzpZU87xxb1LmRnk7JxwaZuQ0DSC3JpUhxjG3_-Inc64nSXMJHWvN-Nq7owqaYrDIyV6vtc6ATbIBnlr5nONbWAOQDvvI4Mn",
+    "https://lh3.googleusercontent.com/aida-public/AB6AXuANQmnM1qL46cGJO5k909hn9c5zDID2L1Zq--ud4vo-aFk-V-MZVDyWY-t4QJzS6XVYs47-t6tDnrVKUGcjRWXRTtUPW9abFA75dOugQal7p7dk9nFpqzAxUk7sXD7PY6IG8mDihcDuHG7fWK_MmOJ7yU8alJGOSun_rwutpWAvpiX6t90Rx1dSPnu3i1BGqvMKQRMTd8hgHfk0s8Wklv7hQsEzChLvP_RKEnPoPDP60E1bfkyy7Bpl",
+    "https://lh3.googleusercontent.com/aida-public/AB6AXuCf-Z70JBdSQnjhJTMA5z_KXeHfjfqZUqNavZFD4UF4PweCFsOUeKr1HNEowL6PGKXHJiwkhV25TBQUqFYcKkg1K0oaTLRZzYWWgEcecrgKgeJS1QTooJce9l58-OzpZU87xxb1LmRnk7JxwaZuQ0DSC3JpUhxjG3_-Inc64nSXMJHWvN-Nq7owqaYrDIyV6vtc6ATbIBnlr5nONbWAOQDvvI4Mn",
+    "https://lh3.googleusercontent.com/aida-public/AB6AXuCQ3TLs1hnBxhwV5oPLz6SLeKcqytX5nyH7Jl7lO4iY3qjFPT03ehx6k1dvQLEENh6So2SjOGc_Jh2oEMQlNSs4lwBmj-KLo9uzq6xarhhwFAYl3c8B6b3mi61VOjWjr1LYthS2pbyvqkOdBEMyCsq8gH2DKc80_jaMX1J8JoT7llJX2dngrgRHOkEznilBa2mpXKiznHeRfw0JvLBXM3AdUfYSAD8WqmuuAn6t7fMEM7nQdSs3qWng"
+)
 
 @Composable
-fun PlannerScreen(
-    viewModel: PlannerViewModel = hiltViewModel(),
-) {
-    val uiState by viewModel.uiState.collectAsState()
-    var showAddEventSheet by remember { mutableStateOf(false) }
-    var showTripSheet by remember { mutableStateOf(false) }
-    var selectedEvent by remember { mutableStateOf<PlannerEventEntity?>(null) }
+fun PlannerScreen(onNavigateToStyleNotes: () -> Unit = {}) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Bg2)
+    ) {
+        // ── Sticky header ──────────────────────────────────────────────
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color(0xF2FBFBFA))
+                .padding(start = 20.dp, end = 20.dp, top = 28.dp, bottom = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                "PLANNER TAB",
+                fontFamily = FontFamily.Serif,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Medium,
+                color = BrandTerracotta,
+                letterSpacing = 1.sp
+            )
+            Text("Plan ahead. Look effortless.", fontSize = 12.sp, color = G3,
+                modifier = Modifier.padding(top = 4.dp))
+        }
 
-    Scaffold(
-        containerColor = StencillaOffWhite,
-        topBar = {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .statusBarsPadding()
-                    .padding(horizontal = 20.dp, vertical = 14.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Column {
-                    Text("Planner", style = MaterialTheme.typography.headlineMedium, color = StencillaDarkGray)
-                    Text("Schedule & outfit planning", style = MaterialTheme.typography.bodySmall, color = StencillaGray)
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 0.dp, bottom = 80.dp),
+            verticalArrangement = Arrangement.spacedBy(20.dp)
+        ) {
+            // ── Calendar ──
+            item {
+                Text("May 2025", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = G1,
+                    modifier = Modifier.padding(bottom = 10.dp))
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    daysOfWeek.forEach { d ->
+                        Text(d, fontSize = 10.sp, color = G3, fontWeight = FontWeight.Medium,
+                            modifier = Modifier.weight(1f), textAlign = TextAlign.Center)
+                    }
                 }
-                Spacer(Modifier.weight(1f))
-                IconButton(
-                    onClick = { showAddEventSheet = true },
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .size(40.dp)
-                            .clip(RoundedCornerShape(12.dp))
-                            .background(StencillaTerracotta),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        Icon(Icons.Outlined.Add, contentDescription = "Add event", tint = StencillaCardWhite)
+                Spacer(Modifier.height(6.dp))
+                Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                    calDates.forEach { date ->
+                        val sel = date == selectedDate
+                        Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.Center) {
+                            if (sel) {
+                                Box(
+                                    modifier = Modifier.size(32.dp).clip(CircleShape).background(BrandTerracotta),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(date.toString(), fontSize = 12.sp, color = White, fontWeight = FontWeight.SemiBold)
+                                }
+                            } else {
+                                Text(date.toString(), fontSize = 12.sp, color = G1, fontWeight = FontWeight.Medium,
+                                    modifier = Modifier.padding(vertical = 6.dp))
+                            }
+                        }
                     }
                 }
             }
-        },
-    ) { padding ->
-        LazyColumn(
-            modifier = Modifier.fillMaxSize().padding(padding),
-            contentPadding = PaddingValues(bottom = 32.dp),
-        ) {
-            // ── Calendar Widget ──────────────────────────────────────────────
-            item { CalendarWidget(uiState = uiState, viewModel = viewModel) }
 
-            // ── Upcoming Events ──────────────────────────────────────────────
+            // ── Upcoming event ──
             item {
-                SectionHeader(
-                    title = "Upcoming Events",
-                    actionLabel = "See all",
-                    onAction = { /* navigate to full list */ },
-                )
-            }
-            if (uiState.upcomingEvents.isEmpty()) {
-                item {
-                    EmptyStateCard(
-                        icon = Icons.Outlined.EventNote,
-                        message = "No upcoming events",
-                        subtitle = "Tap + to add a meeting, date, or special occasion.",
-                    )
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically) {
+                    Text("Upcoming", fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = G1)
+                    Text("View all", fontSize = 11.sp, color = G3)
                 }
-            } else {
-                items(uiState.upcomingEvents.take(5), key = { it.id }) { event ->
-                    EventCard(
-                        event = event,
-                        onClick = { selectedEvent = event },
-                        onPlanOutfit = { viewModel.planOutfitForEvent(event.id) },
-                        modifier = Modifier.padding(horizontal = 20.dp, vertical = 4.dp),
-                    )
-                }
-            }
-
-            // ── Plan Your Day ────────────────────────────────────────────────
-            item { PlanYourDayCard(onAdd = { showAddEventSheet = true }) }
-
-            // ── Outfit Calendar Strip ────────────────────────────────────────
-            item { OutfitCalendarStrip(uiState = uiState, viewModel = viewModel) }
-
-            // ── Trip Planner Banner ──────────────────────────────────────────
-            item { TripPlannerBanner(onClick = { showTripSheet = true }) }
-
-            item { Spacer(Modifier.height(80.dp)) }
-        }
-    }
-
-    if (showAddEventSheet) {
-        EventEditorSheet(
-            initial = null,
-            isTrip = false,
-            onSave = { title, date, time, occasion, dressCode, notes ->
-                viewModel.createEvent(title, date, time, occasion, dressCode, notes, false, null)
-                showAddEventSheet = false
-            },
-            onDismiss = { showAddEventSheet = false },
-        )
-    }
-
-    if (showTripSheet) {
-        EventEditorSheet(
-            initial = null,
-            isTrip = true,
-            onSave = { title, date, time, occasion, dressCode, notes ->
-                viewModel.createEvent(title, date, time, occasion, dressCode, notes, true, null)
-                showTripSheet = false
-            },
-            onDismiss = { showTripSheet = false },
-        )
-    }
-
-    selectedEvent?.let { event ->
-        EventDetailSheet(
-            event = event,
-            onDismiss = { selectedEvent = null },
-            onDelete = { viewModel.deleteEvent(event); selectedEvent = null },
-            onPlanOutfit = { viewModel.planOutfitForEvent(event.id); selectedEvent = null },
-        )
-    }
-}
-
-// ──────────────────────────────────────────────────────────────────────────────
-// Calendar Widget
-// ──────────────────────────────────────────────────────────────────────────────
-@Composable
-private fun CalendarWidget(uiState: PlannerUiState, viewModel: PlannerViewModel) {
-    val today = LocalDate.now()
-    val selectedMonth = uiState.selectedMonth
-    val eventDates = uiState.calendarEvents.map { it.eventDate }.toSet()
-
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp, vertical = 8.dp),
-        shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = StencillaCardWhite),
-        elevation = CardDefaults.cardElevation(1.dp),
-    ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            // Month header
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                IconButton(onClick = { viewModel.previousMonth() }) {
-                    Icon(Icons.Outlined.ChevronLeft, null, tint = StencillaDarkGray)
-                }
-                Text(
-                    text = selectedMonth.month.getDisplayName(JTextStyle.FULL, Locale.getDefault()) +
-                            " ${selectedMonth.year}",
-                    style = MaterialTheme.typography.titleSmall,
-                    color = StencillaDarkGray,
-                    modifier = Modifier.weight(1f),
-                    textAlign = TextAlign.Center,
-                )
-                IconButton(onClick = { viewModel.nextMonth() }) {
-                    Icon(Icons.Outlined.ChevronRight, null, tint = StencillaDarkGray)
-                }
-            }
-
-            // Day-of-week headers
-            Row(modifier = Modifier.fillMaxWidth()) {
-                listOf("Su", "Mo", "Tu", "We", "Th", "Fr", "Sa").forEach { day ->
-                    Text(
-                        day, modifier = Modifier.weight(1f),
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.labelSmall,
-                        color = StencillaGray,
-                    )
-                }
-            }
-            Spacer(Modifier.height(4.dp))
-
-            // Days grid
-            val firstDay = selectedMonth.atDay(1).dayOfWeek.value % 7 // Sunday=0
-            val daysInMonth = selectedMonth.lengthOfMonth()
-            val totalCells = firstDay + daysInMonth
-            val weeks = (totalCells + 6) / 7
-
-            for (week in 0 until weeks) {
-                Row(modifier = Modifier.fillMaxWidth()) {
-                    for (col in 0..6) {
-                        val dayNum = week * 7 + col - firstDay + 1
-                        if (dayNum < 1 || dayNum > daysInMonth) {
-                            Spacer(Modifier.weight(1f))
-                        } else {
-                            val date = selectedMonth.atDay(dayNum)
-                            val dateStr = date.format(DateTimeFormatter.ISO_LOCAL_DATE)
-                            val isToday = date == today
-                            val hasEvent = dateStr in eventDates
-                            val isSelected = uiState.selectedDate == dateStr
-
-                            Box(
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .aspectRatio(1f)
-                                    .clip(CircleShape)
-                                    .background(
-                                        when {
-                                            isSelected -> StencillaTerracotta
-                                            isToday -> StencillaTerracottaLight
-                                            else -> Color.Transparent
-                                        }
-                                    )
-                                    .clickable { viewModel.selectDate(dateStr) },
-                                contentAlignment = Alignment.Center,
-                            ) {
-                                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                    Text(
-                                        dayNum.toString(),
-                                        style = MaterialTheme.typography.labelMedium,
-                                        color = when {
-                                            isSelected -> StencillaCardWhite
-                                            isToday -> StencillaTerracotta
-                                            else -> StencillaDarkGray
-                                        },
-                                    )
-                                    if (hasEvent) {
-                                        Box(
-                                            modifier = Modifier
-                                                .size(4.dp)
-                                                .clip(CircleShape)
-                                                .background(if (isSelected) StencillaCardWhite else StencillaTerracotta),
-                                        )
+                Spacer(Modifier.height(10.dp))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(White)
+                        .border(1.dp, G6, RoundedCornerShape(16.dp))
+                        .padding(12.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                        Box(
+                            modifier = Modifier.width(52.dp).height(66.dp)
+                                .clip(RoundedCornerShape(8.dp)).background(BrandLight3)
+                        ) {
+                            AsyncImage(
+                                model = "https://lh3.googleusercontent.com/aida-public/AB6AXuANr8xB-u498sqfZmKlf5yRsXdsoFxyBGNMYHUq2g0AzmPqSdfuZYCIK6GaG3-T5IlXsWqgbKVx24UAmKUnj4Aczl7wUseClIEqekFRs6APxgA9ZWgX-mK7tWfo1SFZK3MZNBKOfell-X_I1H6gj1qTabznRTrUbUjMRYjhRKiOhJQQencgPNLGP4T-OFhkC-PFte7OVGTtGsujq08mSyIPfIp4xcKbPdqaRoEEkHauDmuLYNNJlRPx",
+                                contentDescription = null, contentScale = ContentScale.Crop,
+                                modifier = Modifier.fillMaxSize()
+                            )
+                        }
+                        Column {
+                            Text("College Presentation", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = G1)
+                            Text("Tomorrow · 10:00 AM", fontSize = 10.sp, color = G3,
+                                modifier = Modifier.padding(top = 3.dp, bottom = 8.dp))
+                            Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+                                eventThumbs.forEach { url ->
+                                    Box(
+                                        modifier = Modifier.width(20.dp).height(28.dp)
+                                            .clip(RoundedCornerShape(4.dp)).background(BrandLight3)
+                                    ) {
+                                        AsyncImage(model = url, contentDescription = null,
+                                            contentScale = ContentScale.Crop, modifier = Modifier.fillMaxSize())
                                     }
                                 }
                             }
                         }
                     }
+                    Icon(
+                        imageVector = StencillaIcons.ChevronRight,
+                        contentDescription = null,
+                        tint = G4,
+                        modifier = Modifier.size(16.dp)
+                    )
                 }
             }
-        }
-    }
-}
 
-// ──────────────────────────────────────────────────────────────────────────────
-// Plan Your Day card
-// ──────────────────────────────────────────────────────────────────────────────
-@Composable
-private fun PlanYourDayCard(onAdd: () -> Unit) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp, vertical = 8.dp),
-        shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = StencillaLavender),
-        elevation = CardDefaults.cardElevation(0.dp),
-    ) {
-        Row(
-            modifier = Modifier.padding(18.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    "Plan Your Day",
-                    style = MaterialTheme.typography.titleSmall,
-                    color = StencillaLavenderDark,
-                )
-                Text(
-                    "Add events so Stencilla can suggest the perfect outfit for each one.",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = StencillaLavenderDark.copy(alpha = 0.75f),
-                    modifier = Modifier.padding(top = 4.dp),
-                )
-            }
-            Spacer(Modifier.width(12.dp))
-            Button(
-                onClick = onAdd,
-                colors = ButtonDefaults.buttonColors(containerColor = StencillaLavenderDark),
-                shape = RoundedCornerShape(12.dp),
-                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-            ) {
-                Text("Add Event", style = MaterialTheme.typography.labelMedium, color = StencillaCardWhite)
-            }
-        }
-    }
-}
-
-// ──────────────────────────────────────────────────────────────────────────────
-// Outfit Calendar Strip
-// ──────────────────────────────────────────────────────────────────────────────
-@Composable
-private fun OutfitCalendarStrip(uiState: PlannerUiState, viewModel: PlannerViewModel) {
-    Column(modifier = Modifier.padding(top = 16.dp)) {
-        SectionHeader(title = "Outfit Calendar", actionLabel = null, onAction = {})
-        LazyRow(
-            contentPadding = PaddingValues(horizontal = 20.dp),
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
-        ) {
-            val today = LocalDate.now()
-            items(14) { offset ->
-                val date = today.plusDays(offset.toLong())
-                val dateStr = date.format(DateTimeFormatter.ISO_LOCAL_DATE)
-                val event = uiState.calendarEvents.firstOrNull { it.eventDate == dateStr }
-                val hasOutfit = !event?.plannedOutfitIds.isNullOrBlank()
-
-                Card(
-                    modifier = Modifier.width(72.dp),
-                    shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = if (offset == 0) StencillaTerracottaLight else StencillaCardWhite,
-                    ),
-                    border = if (offset == 0) ButtonDefaults.outlinedButtonBorder.copy(
-                        brush = androidx.compose.ui.graphics.SolidColor(StencillaTerracotta)
-                    ) else null,
-                    elevation = CardDefaults.cardElevation(1.dp),
-                ) {
-                    Column(
-                        modifier = Modifier.padding(8.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
-                        Text(
-                            date.dayOfWeek.getDisplayName(JTextStyle.SHORT, Locale.getDefault()),
-                            style = MaterialTheme.typography.labelSmall,
-                            color = if (offset == 0) StencillaTerracotta else StencillaGray,
-                        )
-                        Text(
-                            date.dayOfMonth.toString(),
-                            style = MaterialTheme.typography.titleMedium,
-                            color = if (offset == 0) StencillaTerracotta else StencillaDarkGray,
-                        )
-                        Spacer(Modifier.height(6.dp))
-                        // Placeholder [1] for outfit preview image
-                        Box(
-                            modifier = Modifier
-                                .size(48.dp)
-                                .clip(RoundedCornerShape(10.dp))
-                                .background(
-                                    if (hasOutfit) StencillaTerracottaLight
-                                    else StencillaLightGray
-                                )
-                                .border(
-                                    1.dp,
-                                    if (hasOutfit) StencillaTerracotta else StencillaLightBeige,
-                                    RoundedCornerShape(10.dp),
-                                ),
-                            contentAlignment = Alignment.Center,
+            // ── Plan your day ──
+            item {
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically) {
+                    Text("Plan your day", fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = G1)
+                    Box(
+                        modifier = Modifier.size(24.dp).clip(CircleShape).border(1.dp, G5, CircleShape),
+                        contentAlignment = Alignment.Center
+                    ) { Text("+", fontSize = 12.sp, color = G3) }
+                }
+                Text("Get outfit ideas for your plans", fontSize = 11.sp, color = G3,
+                    modifier = Modifier.padding(top = 4.dp, bottom = 12.dp))
+                Column {
+                    dayPlans.forEachIndexed { idx, plan ->
+                        Row(
+                            modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            if (hasOutfit) {
-                                Icon(
-                                    Icons.Outlined.Checkroom, null,
-                                    tint = StencillaTerracotta,
-                                    modifier = Modifier.size(22.dp),
-                                )
+                            Row(horizontalArrangement = Arrangement.spacedBy(10.dp),
+                                verticalAlignment = Alignment.CenterVertically) {
+                                // Calendar icon — matching design
+                                Box(
+                                    modifier = Modifier.size(30.dp).clip(CircleShape).background(BrandLight3),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Icon(
+                                        imageVector = StencillaIcons.CalendarSmall,
+                                        contentDescription = null,
+                                        tint = G3,
+                                        modifier = Modifier.size(15.dp)
+                                    )
+                                }
+                                Column {
+                                    Text(plan.day, fontSize = 12.sp, fontWeight = FontWeight.Medium, color = G1)
+                                    Text(plan.event ?: "No plans yet", fontSize = 10.sp, color = G3,
+                                        modifier = Modifier.padding(top = 1.dp))
+                                }
+                            }
+                            if (plan.time != null) {
+                                Row(verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+                                    Text(plan.time, fontSize = 10.sp, color = G3, fontWeight = FontWeight.Medium)
+                                    Icon(
+                                        imageVector = StencillaIcons.ChevronRight,
+                                        contentDescription = null,
+                                        tint = G4,
+                                        modifier = Modifier.size(12.dp)
+                                    )
+                                }
                             } else {
-                                Text("[1]", style = MaterialTheme.typography.labelSmall, color = StencillaGray)
+                                Text("+", fontSize = 14.sp, color = G4)
                             }
                         }
-                        Spacer(Modifier.height(4.dp))
-                        if (event != null) {
-                            Text(
-                                event.title, style = MaterialTheme.typography.labelSmall,
-                                color = StencillaDarkGray, maxLines = 1, overflow = TextOverflow.Ellipsis,
+                        if (idx < dayPlans.size - 1) HorizontalDivider(color = G6, thickness = 1.dp)
+                    }
+                }
+            }
+
+            // ── Trip planner banner ──
+            item {
+                Box(
+                    modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp))
+                        .background(PlannerPurple).padding(16.dp)
+                ) {
+                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text("Trip planner", fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = G1)
+                            Text("Pack smart. Travel light.", fontSize = 10.sp, color = G3,
+                                modifier = Modifier.padding(top = 3.dp, bottom = 10.dp))
+                            Box(
+                                modifier = Modifier.clip(RoundedCornerShape(999.dp))
+                                    .background(PurpleBtn).padding(horizontal = 14.dp, vertical = 5.dp)
+                            ) {
+                                Text("Plan a trip", fontSize = 10.sp, fontWeight = FontWeight.Medium, color = White)
+                            }
+                        }
+                        Box(modifier = Modifier.size(96.dp)) {
+                            AsyncImage(
+                                model = "https://lh3.googleusercontent.com/aida-public/AB6AXuDfgnHl5boTCFySL6flTR__r5wHNEAkcM_2zhuM_jMceWVF8MrmEBFqGQ7wXGkePUK83WpnQ6w8F5PD3QLcPvIFNibaXGNRzxkx2L5i0Q_W7xTg7hqPkdrmFKosE57ZKvrIQJ1F02mh-1V3XC9wqls0KnlqSyblbpYsUrMVRXnNxzd3guwPWhPXSf5TW-K1kIMrodD2iT7o7n93vO2e6HviL5S2yvAP3RDl8f7yZRntt5IsEbY_-u2g",
+                                contentDescription = "luggage", contentScale = ContentScale.Crop,
+                                modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(8.dp))
                             )
                         }
                     }
                 }
             }
-        }
-    }
-}
 
-// ──────────────────────────────────────────────────────────────────────────────
-// Trip Planner Banner
-// ──────────────────────────────────────────────────────────────────────────────
-@Composable
-private fun TripPlannerBanner(onClick: () -> Unit) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp, vertical = 12.dp)
-            .clickable(onClick = onClick),
-        shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = StencillaTerracotta),
-        elevation = CardDefaults.cardElevation(0.dp),
-    ) {
-        Row(
-            modifier = Modifier.padding(18.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Icon(Icons.Outlined.FlightTakeoff, null, tint = StencillaCardWhite, modifier = Modifier.size(32.dp))
-            Spacer(Modifier.width(14.dp))
-            Column(modifier = Modifier.weight(1f)) {
-                Text("Trip Planner", style = MaterialTheme.typography.titleSmall, color = StencillaCardWhite)
-                Text(
-                    "Pack smart — AI builds your travel capsule wardrobe.",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = StencillaCardWhite.copy(alpha = 0.8f),
-                )
-            }
-            Icon(Icons.Outlined.ChevronRight, null, tint = StencillaCardWhite)
-        }
-    }
-}
-
-// ──────────────────────────────────────────────────────────────────────────────
-// Event Card
-// ──────────────────────────────────────────────────────────────────────────────
-@Composable
-private fun EventCard(
-    event: PlannerEventEntity,
-    onClick: () -> Unit,
-    onPlanOutfit: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    val formatter = DateTimeFormatter.ofPattern("d MMM", Locale.getDefault())
-    val dateLabel = try {
-        LocalDate.parse(event.eventDate).format(formatter)
-    } catch (_: Exception) { event.eventDate }
-
-    Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick),
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = StencillaCardWhite),
-        elevation = CardDefaults.cardElevation(1.dp),
-    ) {
-        Row(modifier = Modifier.padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
-            // Date pill
-            Box(
-                modifier = Modifier
-                    .size(48.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(StencillaTerracottaLight),
-                contentAlignment = Alignment.Center,
-            ) {
-                Text(dateLabel, style = MaterialTheme.typography.labelSmall, color = StencillaTerracotta, textAlign = TextAlign.Center)
-            }
-            Spacer(Modifier.width(12.dp))
-            Column(modifier = Modifier.weight(1f)) {
-                Text(event.title, style = MaterialTheme.typography.titleSmall, color = StencillaDarkGray)
-                val sub = listOfNotNull(event.occasion, event.dressCode, event.eventTime).joinToString(" · ")
-                if (sub.isNotBlank()) {
-                    Text(sub, style = MaterialTheme.typography.bodySmall, color = StencillaGray)
+            // ── Outfit calendar strip ──
+            item {
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically) {
+                    Text("Outfit calendar", fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = G1)
+                    Text("View all", fontSize = 11.sp, color = G3)
                 }
-                if (event.isTrip) {
-                    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 2.dp)) {
-                        Icon(Icons.Outlined.FlightTakeoff, null, tint = StencillaTerracotta, modifier = Modifier.size(12.dp))
-                        Spacer(Modifier.width(4.dp))
-                        Text("Trip" + if (event.tripEndDate != null) " → ${event.tripEndDate}" else "",
-                            style = MaterialTheme.typography.labelSmall, color = StencillaTerracotta)
-                    }
-                }
-            }
-            TextButton(
-                onClick = onPlanOutfit,
-                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp),
-            ) {
-                Text("Outfit", style = MaterialTheme.typography.labelSmall, color = StencillaTerracotta)
-            }
-        }
-    }
-}
-
-// ──────────────────────────────────────────────────────────────────────────────
-// Helper composables
-// ──────────────────────────────────────────────────────────────────────────────
-@Composable
-private fun SectionHeader(title: String, actionLabel: String?, onAction: () -> Unit) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp, vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Text(title, style = MaterialTheme.typography.titleSmall, color = StencillaDarkGray, modifier = Modifier.weight(1f))
-        if (actionLabel != null) {
-            TextButton(onClick = onAction, contentPadding = PaddingValues(0.dp)) {
-                Text(actionLabel, style = MaterialTheme.typography.labelSmall, color = StencillaTerracotta)
-            }
-        }
-    }
-}
-
-@Composable
-private fun EmptyStateCard(icon: androidx.compose.ui.graphics.vector.ImageVector, message: String, subtitle: String) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp, vertical = 4.dp),
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = StencillaCardWhite),
-        elevation = CardDefaults.cardElevation(0.dp),
-    ) {
-        Column(
-            modifier = Modifier.fillMaxWidth().padding(24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Icon(icon, null, tint = StencillaLightGray, modifier = Modifier.size(40.dp))
-            Spacer(Modifier.height(8.dp))
-            Text(message, style = MaterialTheme.typography.titleSmall, color = StencillaGray)
-            Text(subtitle, style = MaterialTheme.typography.bodySmall, color = StencillaGray, textAlign = TextAlign.Center)
-        }
-    }
-}
-
-// ──────────────────────────────────────────────────────────────────────────────
-// Event Editor Bottom Sheet
-// ──────────────────────────────────────────────────────────────────────────────
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun EventEditorSheet(
-    initial: PlannerEventEntity?,
-    isTrip: Boolean,
-    onSave: (String, String, String?, String?, String?, String?) -> Unit,
-    onDismiss: () -> Unit,
-) {
-    var title    by remember { mutableStateOf(initial?.title ?: "") }
-    var date     by remember { mutableStateOf(initial?.eventDate ?: LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE)) }
-    var time     by remember { mutableStateOf(initial?.eventTime ?: "") }
-    var occasion by remember { mutableStateOf(initial?.occasion ?: "") }
-    var dressCod by remember { mutableStateOf(initial?.dressCode ?: "") }
-    var notes    by remember { mutableStateOf(initial?.notes ?: "") }
-
-    ModalBottomSheet(onDismissRequest = onDismiss, containerColor = StencillaCardWhite) {
-        Column(modifier = Modifier.padding(horizontal = 24.dp).padding(bottom = 32.dp)) {
-            Text(
-                if (isTrip) "Plan a Trip" else if (initial == null) "Add Event" else "Edit Event",
-                style = MaterialTheme.typography.titleMedium, color = StencillaDarkGray,
-            )
-            Spacer(Modifier.height(18.dp))
-
-            val fieldColors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = StencillaTerracotta, focusedLabelColor = StencillaTerracotta,
-            )
-            OutlinedTextField(value = title, onValueChange = { title = it }, label = { Text("Title") },
-                modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(12.dp), colors = fieldColors)
-            Spacer(Modifier.height(10.dp))
-            OutlinedTextField(value = date, onValueChange = { date = it }, label = { Text("Date (YYYY-MM-DD)") },
-                modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(12.dp), colors = fieldColors)
-            Spacer(Modifier.height(10.dp))
-            if (!isTrip) {
-                OutlinedTextField(value = time, onValueChange = { time = it }, label = { Text("Time (HH:MM, optional)") },
-                    modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(12.dp), colors = fieldColors)
-                Spacer(Modifier.height(10.dp))
-            }
-            OutlinedTextField(value = occasion, onValueChange = { occasion = it },
-                label = { Text("Occasion (e.g. wedding, interview)") },
-                modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(12.dp), colors = fieldColors)
-            Spacer(Modifier.height(10.dp))
-            OutlinedTextField(value = dressCod, onValueChange = { dressCod = it },
-                label = { Text("Dress code (optional)") },
-                modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(12.dp), colors = fieldColors)
-            Spacer(Modifier.height(10.dp))
-            OutlinedTextField(value = notes, onValueChange = { notes = it }, label = { Text("Notes") },
-                modifier = Modifier.fillMaxWidth().height(80.dp), shape = RoundedCornerShape(12.dp), colors = fieldColors)
-
-            Spacer(Modifier.height(20.dp))
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                OutlinedButton(onClick = onDismiss, modifier = Modifier.weight(1f), shape = RoundedCornerShape(12.dp)) {
-                    Text("Cancel", color = StencillaGray)
-                }
-                Button(
-                    onClick = {
-                        if (title.isNotBlank() && date.isNotBlank()) {
-                            onSave(title, date, time.takeIf { it.isNotBlank() },
-                                occasion.takeIf { it.isNotBlank() }, dressCod.takeIf { it.isNotBlank() },
-                                notes.takeIf { it.isNotBlank() })
+                Text("See your looks", fontSize = 11.sp, color = G3,
+                    modifier = Modifier.padding(top = 2.dp, bottom = 12.dp))
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                    outfitStrip.forEach { (dow, date, url) ->
+                        val sel = date == selectedDate
+                        Column(horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                            Text(dow.uppercase(), fontSize = 8.sp,
+                                color = if (sel) BrandTerracotta else G3,
+                                fontWeight = if (sel) FontWeight.Medium else FontWeight.Normal,
+                                letterSpacing = 0.5.sp)
+                            Text(date.toString(), fontSize = 11.sp,
+                                color = if (sel) BrandTerracotta else G1,
+                                fontWeight = FontWeight.Medium)
+                            Box(
+                                modifier = Modifier.width(46.dp).height(66.dp)
+                                    .clip(RoundedCornerShape(8.dp)).background(BrandLight3)
+                                    .then(if (sel) Modifier.border(1.5.dp, BrandTerracotta, RoundedCornerShape(8.dp)) else Modifier)
+                            ) {
+                                AsyncImage(model = url, contentDescription = null,
+                                    contentScale = ContentScale.Crop, modifier = Modifier.fillMaxSize())
+                            }
                         }
-                    },
-                    modifier = Modifier.weight(1f), shape = RoundedCornerShape(12.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = StencillaTerracotta),
-                ) { Text("Save", color = StencillaCardWhite) }
-            }
-        }
-    }
-}
-
-// ──────────────────────────────────────────────────────────────────────────────
-// Event Detail Sheet
-// ──────────────────────────────────────────────────────────────────────────────
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun EventDetailSheet(
-    event: PlannerEventEntity,
-    onDismiss: () -> Unit,
-    onDelete: () -> Unit,
-    onPlanOutfit: () -> Unit,
-) {
-    ModalBottomSheet(onDismissRequest = onDismiss, containerColor = StencillaCardWhite) {
-        Column(modifier = Modifier.padding(horizontal = 24.dp).padding(bottom = 32.dp)) {
-            Text(event.title, style = MaterialTheme.typography.titleMedium, color = StencillaDarkGray)
-            Spacer(Modifier.height(8.dp))
-            listOfNotNull(
-                "Date" to event.eventDate,
-                event.eventTime?.let { "Time" to it },
-                event.occasion?.let { "Occasion" to it },
-                event.dressCode?.let { "Dress code" to it },
-                event.notes?.let { "Notes" to it },
-                event.tripEndDate?.let { "Trip ends" to it },
-            ).forEach { (label, value) ->
-                Row(modifier = Modifier.padding(vertical = 2.dp)) {
-                    Text("$label: ", style = MaterialTheme.typography.labelMedium, color = StencillaGray)
-                    Text(value, style = MaterialTheme.typography.bodySmall, color = StencillaDarkGray)
-                }
-            }
-            Spacer(Modifier.height(20.dp))
-            Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                OutlinedButton(
-                    onClick = onDelete, modifier = Modifier.weight(1f), shape = RoundedCornerShape(12.dp),
-                    colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error),
-                ) { Text("Delete") }
-                Button(
-                    onClick = onPlanOutfit, modifier = Modifier.weight(2f), shape = RoundedCornerShape(12.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = StencillaTerracotta),
-                ) {
-                    Icon(Icons.Outlined.Checkroom, null, modifier = Modifier.size(16.dp))
-                    Spacer(Modifier.width(6.dp))
-                    Text("Plan Outfit", color = StencillaCardWhite)
+                    }
                 }
             }
         }

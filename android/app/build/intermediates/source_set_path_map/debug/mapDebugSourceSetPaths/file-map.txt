@@ -1,0 +1,72 @@
+com.stencilla.app-jetified-ui-geometry-release-0 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\02d46e9dfad5f0ec6a825b030b79378d\transformed\jetified-ui-geometry-release\res
+com.stencilla.app-room-runtime-2.6.1-1 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\0869b9953cee712fed4a79baa741ad2c\transformed\room-runtime-2.6.1\res
+com.stencilla.app-jetified-lifecycle-viewmodel-ktx-2.8.7-2 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\0d2007414f0cfeb7b5bb4018d540f739\transformed\jetified-lifecycle-viewmodel-ktx-2.8.7\res
+com.stencilla.app-jetified-runtime-saveable-release-3 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\0f41cea9e0e95ecffac0b6603582be54\transformed\jetified-runtime-saveable-release\res
+com.stencilla.app-jetified-ui-tooling-data-release-4 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\0f45d98879da43af82db20de3b6c8355\transformed\jetified-ui-tooling-data-release\res
+com.stencilla.app-jetified-datastore-preferences-release-5 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\14d4ca7496107775d40657fc0e9dcf1f\transformed\jetified-datastore-preferences-release\res
+com.stencilla.app-jetified-material-release-6 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\1c24701f16c9df582d28a7f260a644f3\transformed\jetified-material-release\res
+com.stencilla.app-jetified-ui-unit-release-7 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\1e00ccde4e823aadf5fdd4426a30bed9\transformed\jetified-ui-unit-release\res
+com.stencilla.app-jetified-lifecycle-runtime-ktx-release-8 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\23d47bc97b8de3a8af1a556a258ad06a\transformed\jetified-lifecycle-runtime-ktx-release\res
+com.stencilla.app-jetified-customview-poolingcontainer-1.0.0-9 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\26ee51c704703b6c9400bc8dd6aa23a5\transformed\jetified-customview-poolingcontainer-1.0.0\res
+com.stencilla.app-jetified-startup-runtime-1.1.1-10 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\2cac8d1591b79645e3eec8ba8e5e6221\transformed\jetified-startup-runtime-1.1.1\res
+com.stencilla.app-core-1.15.0-11 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\30ae0a9b1a10a56c339ea2c4fb59ffd1\transformed\core-1.15.0\res
+com.stencilla.app-jetified-ui-release-12 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\30eba497d1b94498bda35fe55e26cf82\transformed\jetified-ui-release\res
+com.stencilla.app-jetified-savedstate-1.2.1-13 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\30fc7c2520fdb2080924559dc32aa899\transformed\jetified-savedstate-1.2.1\res
+com.stencilla.app-jetified-material-icons-extended-release-14 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\370e18aa8c292c0a0261a341dbf33b53\transformed\jetified-material-icons-extended-release\res
+com.stencilla.app-jetified-navigation-compose-2.8.5-15 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\3d9baee294af62f41547601374b49387\transformed\jetified-navigation-compose-2.8.5\res
+com.stencilla.app-lifecycle-livedata-core-2.8.7-16 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\41e07183a27a679a44f4d16cce533fb6\transformed\lifecycle-livedata-core-2.8.7\res
+com.stencilla.app-jetified-ui-graphics-release-17 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\4beb53b4d39a5597b1d0220bea7040df\transformed\jetified-ui-graphics-release\res
+com.stencilla.app-jetified-lifecycle-viewmodel-release-18 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\4d91c2586d5dd190c16997d697fdb7e2\transformed\jetified-lifecycle-viewmodel-release\res
+com.stencilla.app-jetified-annotation-experimental-1.4.1-19 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\4e23b322c15b24b00676a453115cb1d4\transformed\jetified-annotation-experimental-1.4.1\res
+com.stencilla.app-jetified-hilt-navigation-compose-1.2.0-20 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\5006eeace4183a66391b6cedc4b060e8\transformed\jetified-hilt-navigation-compose-1.2.0\res
+com.stencilla.app-navigation-runtime-2.8.5-21 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\52cc0ccfa6a3258203b485762b7fc702\transformed\navigation-runtime-2.8.5\res
+com.stencilla.app-jetified-room-ktx-2.6.1-22 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\5d19d2e7b0b538024b558890a52cd069\transformed\jetified-room-ktx-2.6.1\res
+com.stencilla.app-navigation-common-2.8.5-23 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\5da344a255e0ce7ec3bc54b6d9614162\transformed\navigation-common-2.8.5\res
+com.stencilla.app-jetified-animation-core-release-24 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\60057d64d24721d4e616f5de34434087\transformed\jetified-animation-core-release\res
+com.stencilla.app-jetified-lifecycle-process-2.8.7-25 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\6089babbdc254777ba3bb2a381b283fc\transformed\jetified-lifecycle-process-2.8.7\res
+com.stencilla.app-core-runtime-2.2.0-26 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\60b01a948f80045685d2f633779aee44\transformed\core-runtime-2.2.0\res
+com.stencilla.app-jetified-tracing-1.2.0-27 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\62383e6a31a55e59238b66ff755d2519\transformed\jetified-tracing-1.2.0\res
+com.stencilla.app-jetified-ui-tooling-release-28 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\665335a133d13d4575ec3a1d81501d7f\transformed\jetified-ui-tooling-release\res
+com.stencilla.app-lifecycle-livedata-2.8.7-29 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\70bb960d78100b955f7333ef825c77f6\transformed\lifecycle-livedata-2.8.7\res
+com.stencilla.app-jetified-savedstate-ktx-1.2.1-30 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\73870029328a33a597bdb7098bbccc9c\transformed\jetified-savedstate-ktx-1.2.1\res
+com.stencilla.app-jetified-graphics-path-1.0.1-31 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\7441db50fa9f65ea31ca941cc88e18a1\transformed\jetified-graphics-path-1.0.1\res
+com.stencilla.app-jetified-lifecycle-livedata-core-ktx-2.8.7-32 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\7608e4488ee83c610d1bc1113440d9f0\transformed\jetified-lifecycle-livedata-core-ktx-2.8.7\res
+com.stencilla.app-jetified-material-ripple-release-33 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\80bfc0e1555500c0a3263498b186a995\transformed\jetified-material-ripple-release\res
+com.stencilla.app-navigation-common-ktx-2.8.5-34 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\89eda44b7d0c3cfd9cfb0383a11189ab\transformed\navigation-common-ktx-2.8.5\res
+com.stencilla.app-jetified-datastore-release-35 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\9312f5500acf6d49aba99eaeb6947464\transformed\jetified-datastore-release\res
+com.stencilla.app-jetified-play-services-base-18.5.0-36 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\99b34b788c352a6913b2fe60d5adc690\transformed\jetified-play-services-base-18.5.0\res
+com.stencilla.app-jetified-play-services-basement-18.4.0-37 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\9f4748d5367486f8cf94247aca4c5cd1\transformed\jetified-play-services-basement-18.4.0\res
+com.stencilla.app-jetified-ui-tooling-preview-release-38 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\a1a2b4f3aa9536d2880d2ffb77b9bb3c\transformed\jetified-ui-tooling-preview-release\res
+com.stencilla.app-navigation-runtime-ktx-2.8.5-39 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\a33ca3b4c61dcd8ec9d22fcca6e32ba2\transformed\navigation-runtime-ktx-2.8.5\res
+com.stencilla.app-sqlite-framework-2.4.0-40 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\a9d5406699b83d6ef169d1aafd17ad24\transformed\sqlite-framework-2.4.0\res
+com.stencilla.app-jetified-lifecycle-runtime-release-41 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\ad490444df1f7296093fa359d66e3809\transformed\jetified-lifecycle-runtime-release\res
+com.stencilla.app-fragment-1.5.1-42 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\ad6d00d0a15817d4018aa4a9b8caa215\transformed\fragment-1.5.1\res
+com.stencilla.app-jetified-material3-release-43 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\b2244105d0a9bc274178eac6f05dc08d\transformed\jetified-material3-release\res
+com.stencilla.app-jetified-animation-release-44 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\b5748cffd85246f5966ef3da4e42bde8\transformed\jetified-animation-release\res
+com.stencilla.app-jetified-activity-ktx-1.9.3-45 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\bbaa0b0a00781aa3a2ee09a2cc27fee6\transformed\jetified-activity-ktx-1.9.3\res
+com.stencilla.app-jetified-material-icons-core-release-46 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\bcdae31923c927ef03555434ea5c7c9c\transformed\jetified-material-icons-core-release\res
+com.stencilla.app-jetified-coil-base-2.7.0-47 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\bf776d8b2b84bcee4916ce069a604610\transformed\jetified-coil-base-2.7.0\res
+com.stencilla.app-jetified-activity-compose-1.9.3-48 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\c1b61dc6903d02697f437800d2afed8a\transformed\jetified-activity-compose-1.9.3\res
+com.stencilla.app-jetified-foundation-release-49 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\c91fc4512d7a6c7d2dbd4bc20441f4d4\transformed\jetified-foundation-release\res
+com.stencilla.app-jetified-emoji2-1.3.0-50 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\cf111e2dd915dc5d882f075061a21160\transformed\jetified-emoji2-1.3.0\res
+com.stencilla.app-jetified-activity-1.9.3-51 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\d3a665ddacd6ef2e8b7726a4fd6bc268\transformed\jetified-activity-1.9.3\res
+com.stencilla.app-jetified-appcompat-resources-1.6.1-52 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\d51da29138ceb5471da165bdf3742158\transformed\jetified-appcompat-resources-1.6.1\res
+com.stencilla.app-jetified-datastore-core-release-53 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\d94562ad1b87589224181607f9fe8a53\transformed\jetified-datastore-core-release\res
+com.stencilla.app-jetified-hilt-navigation-1.2.0-54 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\d998b0bdf8468052259e78ac778f0bc7\transformed\jetified-hilt-navigation-1.2.0\res
+com.stencilla.app-jetified-lifecycle-runtime-compose-release-55 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\db7591a03bf14151b36aba43e2bfed05\transformed\jetified-lifecycle-runtime-compose-release\res
+com.stencilla.app-jetified-foundation-layout-release-56 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\dfb2a42e6d5fe46e7a6101a8cb02f488\transformed\jetified-foundation-layout-release\res
+com.stencilla.app-jetified-runtime-release-57 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\e140541b45aa20be199679297759b8ca\transformed\jetified-runtime-release\res
+com.stencilla.app-jetified-profileinstaller-1.3.1-58 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\e2f9e825a585b46728a0b172b0ba4a3b\transformed\jetified-profileinstaller-1.3.1\res
+com.stencilla.app-sqlite-2.4.0-59 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\eb82d244f52f96c651b95308d85078cd\transformed\sqlite-2.4.0\res
+com.stencilla.app-jetified-ui-util-release-60 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\eee83bc26b89fe82cf8dda1b559ce33c\transformed\jetified-ui-util-release\res
+com.stencilla.app-jetified-lifecycle-viewmodel-compose-release-61 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\f3458ea58e4f9db128cfb891535050e4\transformed\jetified-lifecycle-viewmodel-compose-release\res
+com.stencilla.app-jetified-core-ktx-1.15.0-62 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\f4d309e84bef7de53684c8adc888e018\transformed\jetified-core-ktx-1.15.0\res
+com.stencilla.app-jetified-ui-text-release-63 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\f6cf76f2663e283382f86a6ed281f0e3\transformed\jetified-ui-text-release\res
+com.stencilla.app-jetified-lifecycle-viewmodel-savedstate-2.8.7-64 C:\Users\Lenovo 7\.gradle\caches\8.9\transforms\fc4b7eb1731f6d21faee75dd4df763bb\transformed\jetified-lifecycle-viewmodel-savedstate-2.8.7\res
+com.stencilla.app-pngs-65 C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\build\generated\res\pngs\debug
+com.stencilla.app-resValues-66 C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\build\generated\res\resValues\debug
+com.stencilla.app-packageDebugResources-67 C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.stencilla.app-packageDebugResources-68 C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.stencilla.app-debug-69 C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\build\intermediates\merged_res\debug\mergeDebugResources
+com.stencilla.app-debug-70 C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\debug\res
+com.stencilla.app-main-71 C:\Users\Lenovo 7\Downloads\stencilla_github_final (1)\stencilla\android\app\src\main\res
